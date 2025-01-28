@@ -8,9 +8,10 @@ interface ICommerceCard {
   product_price: number
   product_image: string
   product_favorite: boolean
+  product_discount?: number
 }
 
-const CommerceCard:React.FC<ICommerceCard> = ({product_name, product_collection, product_price, product_image, product_favorite }) => {
+const CommerceCard:React.FC<ICommerceCard> = ({product_name, product_collection, product_price, product_image, product_favorite, product_discount }) => {
   const [heartHover, setHeartHover] = useState(product_favorite)
 
   return (
@@ -40,9 +41,20 @@ const CommerceCard:React.FC<ICommerceCard> = ({product_name, product_collection,
         </Typography.Text>
       </Row>
       <Row>
-        <Typography.Text style={{marginTop: 2, fontWeight: 500, fontSize: 15, marginLeft: 5 }}>
-          {`R$ ${product_price}`}
-        </Typography.Text>
+        {product_discount ? (
+              <>
+                <Typography.Text style={{marginTop: 2, fontWeight: 500, color: 'red', fontSize: 15, marginLeft: 5, textDecoration: 'line-through' }}>
+                {`R$ ${product_price}`}
+                </Typography.Text>
+                <Typography.Text style={{marginTop: 2, fontWeight: 600, fontSize: 16, marginLeft: 5 }}>
+                  {`R$ ${(product_price - (product_price*product_discount/100)).toFixed(2)}`}
+                </Typography.Text>
+              </>
+            ) : (
+              <Typography.Text style={{marginTop: 2, fontWeight: 600, fontSize: 16, marginLeft: 5 }}>
+                {`R$ ${product_price}`}
+              </Typography.Text>
+            )}
       </Row>
     </Card>
   )

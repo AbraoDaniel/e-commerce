@@ -134,7 +134,49 @@ button:focus-visible {
 }
 
 .category-label {
+  font-family: 'Bona Nova SC', sans-serif;
   font-size: 30px;
+  cursor: pointer;
+}
+
+.category-header {
+  background: white;
+  padding: 12px 165px;
+  font-family: 'Inter', sans-serif;
+  .category-product-label {
+    font-size: 20px;
+  }
+
+  .category-name {
+    font-size: 40px;
+    font-family: 'Bona Nova SC', sans-serif;
+  }
+}
+
+.products-view {
+  background: white;
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.reduced-view {
+  width: 95%;
+}
+
+.product-view-card {
+  width: 387px;
+  min-width: 387px;
+  height: 480px;
+  margin-right: 10px;
+  cursor: pointer;
+  .product-show-favorite-icon {
+    cursor: pointer;
+    font-size: 25px;
+    position: relative;
+    left: 320px;
+    bottom: 370px;
+  }
 }
 
 .content-wrap {

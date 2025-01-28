@@ -3,6 +3,7 @@ import { BrowserRouter as Router} from "react-router-dom";
 import { Layout } from 'antd';
 import CommerceHeader from './components/CommerceHeader';
 import AppRoutes from './AppRoutes';
+import './i18n'
 
 const { Footer } = Layout;
 

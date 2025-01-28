@@ -1,7 +1,7 @@
 import { Input, Layout, Menu, Row, Space } from 'antd';
 import { HeartOutlined, SearchOutlined, ShoppingOutlined, UserOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const CommerceHeader: React.FC = () => {
   const navigate = useNavigate()
@@ -17,6 +17,11 @@ const CommerceHeader: React.FC = () => {
     {key: 'shoes', label: 'CALÇADOS'},
     {key: 'accessories', label: 'ACESSÓRIOS'},
   ]
+
+  useEffect(() => {
+    const path = location?.pathname?.split('/')[1]
+    setCurrentTab(path)
+  }, [location?.pathname])
 
   return (
     <Header className="main-header">
