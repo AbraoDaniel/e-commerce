@@ -1,6 +1,7 @@
 import { HeartFilled, HeartOutlined } from "@ant-design/icons"
 import { Card, Col, Row, Typography } from "antd"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 interface ICommerceCard {
   product_name: string
@@ -12,10 +13,17 @@ interface ICommerceCard {
 }
 const ProductsGridCard: React.FC<ICommerceCard> = ({product_name, product_collection, product_price, product_image, product_favorite, product_discount}) => {
   const [heartHover, setHeartHover] = useState(product_favorite)
+  const navigate = useNavigate()
+  
+  function handleClickToViewProduct() {
+    navigate(`/products/${product_name?.toLowerCase()?.replace(" ", "-")}`, {state: {
+      product_name, product_collection, product_price, product_image, product_favorite, product_discount
+    }})
+  }
   
   return (
     <Col xs={6} style={{display: 'grid', justifyContent: 'center', padding: 0, marginRight: -50}}>
-      <Card className="product-view-card"> 
+      <Card className="product-view-card" onClick={handleClickToViewProduct}> 
         <Row style={{marginBottom: '-20px'}}>
           <img
             alt={product_name}
@@ -40,16 +48,16 @@ const ProductsGridCard: React.FC<ICommerceCard> = ({product_name, product_collec
         </Row>
         <Row>
           {product_discount ? (
-            <>
-              <Typography.Text style={{marginTop: 2, fontWeight: 500, color: 'red', fontSize: 15, marginLeft: 5, textDecoration: 'line-through' }}>
+            <div style={{display: 'flex', alignItems: 'center'}}>
+              <Typography.Text style={{fontFamily: 'Bona Nova SC', marginTop: 2, fontWeight: 500, color: 'red', fontSize: 17, marginLeft: 5, textDecoration: 'line-through' }}>
               {`R$ ${product_price}`}
               </Typography.Text>
-              <Typography.Text style={{marginTop: 2, fontWeight: 600, fontSize: 16, marginLeft: 5 }}>
+              <Typography.Text style={{fontFamily: 'Bona Nova SC', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
                 {`R$ ${(product_price - (product_price*product_discount/100)).toFixed(2)}`}
               </Typography.Text>
-            </>
+            </div>
           ) : (
-            <Typography.Text style={{marginTop: 2, fontWeight: 600, fontSize: 16, marginLeft: 5 }}>
+            <Typography.Text style={{fontFamily: 'Bona Nova SC', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
               {`R$ ${product_price}`}
             </Typography.Text>
           )}

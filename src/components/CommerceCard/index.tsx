@@ -42,16 +42,16 @@ const CommerceCard:React.FC<ICommerceCard> = ({product_name, product_collection,
       </Row>
       <Row>
         {product_discount ? (
-              <>
-                <Typography.Text style={{marginTop: 2, fontWeight: 500, color: 'red', fontSize: 15, marginLeft: 5, textDecoration: 'line-through' }}>
+              <div style={{display: 'flex', alignItems: 'center'}}>
+                <Typography.Text style={{fontFamily: 'Bona Nova SC', marginTop: 2, fontWeight: 500, color: 'red', fontSize: 17, marginLeft: 5, textDecoration: 'line-through' }}>
                 {`R$ ${product_price}`}
                 </Typography.Text>
-                <Typography.Text style={{marginTop: 2, fontWeight: 600, fontSize: 16, marginLeft: 5 }}>
+                <Typography.Text style={{fontFamily: 'Bona Nova SC', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
                   {`R$ ${(product_price - (product_price*product_discount/100)).toFixed(2)}`}
                 </Typography.Text>
-              </>
+              </div>
             ) : (
-              <Typography.Text style={{marginTop: 2, fontWeight: 600, fontSize: 16, marginLeft: 5 }}>
+              <Typography.Text style={{fontFamily: 'Bona Nova SC', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
                 {`R$ ${product_price}`}
               </Typography.Text>
             )}

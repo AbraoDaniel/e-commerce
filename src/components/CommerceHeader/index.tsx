@@ -2,12 +2,14 @@ import { Input, Layout, Menu, Row, Space } from 'antd';
 import { HeartOutlined, SearchOutlined, ShoppingOutlined, UserOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import CartDrawer from '../CartDrawer';
 
 const CommerceHeader: React.FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { Header } = Layout;
   const [currentTab, setCurrentTab] = useState(location?.pathname?.split('/')[1])
+  const [visibleCartDrawer, setVisibleCartDrawer] = useState(false)
 
   const items = [
     {key: 'tshirts', label: 'CAMISETAS'},
@@ -48,9 +50,10 @@ const CommerceHeader: React.FC = () => {
           <span style={{position: 'absolute', right: 50, fontSize: 25}}>
             <UserOutlined style={{marginRight: 10, cursor: 'pointer'}} onClick={() => alert('usuário')}/>
             <HeartOutlined style={{marginRight: 10, cursor: 'pointer'}} onClick={() => alert('favoritos')}/>
-            <ShoppingOutlined onClick={() => alert('sacola')} />
+            <ShoppingOutlined onClick={() => setVisibleCartDrawer(true)} />
           </span>
         </Row>
+        {visibleCartDrawer && <CartDrawer setVisibleCartDrawer={setVisibleCartDrawer} />}
       </Header>
   )
 }
