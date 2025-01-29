@@ -21,10 +21,14 @@ interface ICommerceContent {
 const CommerceContent: React.FC<ICommerceContent> = ({category, products}) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
+
+  function handleClickCategory () {
+    navigate(category)
+  }
   
   return (
     <Content style={{ padding: '10px 48px', marginBottom: 20 }}>
-      <Typography.Text className={'category-label'} onClick={() => navigate(category)}>{t(category)}</Typography.Text>
+      <Typography.Text className={'category-label'} onClick={handleClickCategory}>{t(category)}</Typography.Text>
       <div className='content-wrap'>
         {products?.map((product) => {
           return (

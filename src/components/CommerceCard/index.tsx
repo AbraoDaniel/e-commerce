@@ -1,6 +1,7 @@
 import { HeartFilled, HeartOutlined } from "@ant-design/icons"
 import { Card, Row, Typography } from "antd"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 interface ICommerceCard {
   product_name: string
@@ -13,10 +14,18 @@ interface ICommerceCard {
 
 const CommerceCard:React.FC<ICommerceCard> = ({product_name, product_collection, product_price, product_image, product_favorite, product_discount }) => {
   const [heartHover, setHeartHover] = useState(product_favorite)
+  const navigate = useNavigate()
+
+  function handleClickToViewProduct() {
+    navigate(`/products/${product_name?.toLowerCase()?.replace(" ", "-")}`, {state: {
+      product_name, product_collection, product_price, product_image, product_favorite, product_discount
+    }})
+  }
 
   return (
     <Card
       className="product-card"
+      onClick={handleClickToViewProduct}
     > 
       <Row style={{marginBottom: '-20px'}}>
         <img
@@ -43,15 +52,15 @@ const CommerceCard:React.FC<ICommerceCard> = ({product_name, product_collection,
       <Row>
         {product_discount ? (
               <div style={{display: 'flex', alignItems: 'center'}}>
-                <Typography.Text style={{fontFamily: 'Bona Nova SC', marginTop: 2, fontWeight: 500, color: 'red', fontSize: 17, marginLeft: 5, textDecoration: 'line-through' }}>
+                <Typography.Text style={{fontFamily: 'Bona Nova SC, sans serif', marginTop: 2, fontWeight: 500, color: 'red', fontSize: 17, marginLeft: 5, textDecoration: 'line-through' }}>
                 {`R$ ${product_price}`}
                 </Typography.Text>
-                <Typography.Text style={{fontFamily: 'Bona Nova SC', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
+                <Typography.Text style={{fontFamily: 'Bona Nova SC, sans serif', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
                   {`R$ ${(product_price - (product_price*product_discount/100)).toFixed(2)}`}
                 </Typography.Text>
               </div>
             ) : (
-              <Typography.Text style={{fontFamily: 'Bona Nova SC', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
+              <Typography.Text style={{fontFamily: 'Bona Nova SC, sans serif', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
                 {`R$ ${product_price}`}
               </Typography.Text>
             )}

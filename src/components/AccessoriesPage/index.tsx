@@ -3,14 +3,15 @@ import { useTranslation } from "react-i18next"
 import ProductsGridCard from "../ProductsGridCard"
 import { useEffect } from "react"
 
-const ShortsPage: React.FC = () => {
+const AccessoriesPage: React.FC = () => {
   const { t } = useTranslation()
   const products = [
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: true },
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false },
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false },
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false },
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false },
+    {name: 'Boné preto', collection: 'Basic', price: 89.99, image: './src/assets/Accessories/bone-preto.png', favorite: true, discount: 10 },
+    {name: 'Boné preto', collection: 'Basic', price: 89.99, image: './src/assets/Accessories/bone-preto.png', favorite: true },
+    {name: 'Boné preto', collection: 'Basic', price: 89.99, image: './src/assets/Accessories/bone-preto.png', favorite: true },
+    {name: 'Boné preto', collection: 'Basic', price: 89.99, image: './src/assets/Accessories/bone-preto.png', favorite: true },
+    {name: 'Boné preto', collection: 'Basic', price: 89.99, image: './src/assets/Accessories/bone-preto.png', favorite: true },
+    {name: 'Boné preto', collection: 'Basic', price: 89.99, image: './src/assets/Accessories/bone-preto.png', favorite: true }
   ]
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const ShortsPage: React.FC = () => {
         </Row>
         <Row>
           <Typography.Text className="category-name">
-            {t('shorts')}
+            {t('accessories')}
           </Typography.Text>
         </Row>
       </div>
@@ -37,7 +38,7 @@ const ShortsPage: React.FC = () => {
               {products?.map((product) => {
                 return (
                   <ProductsGridCard product_name={product?.name} product_collection={product?.collection} 
-                  product_price={product?.price} product_image={product?.image} product_favorite={product?.favorite}/>
+                  product_price={product?.price} product_image={product?.image} product_favorite={product?.favorite} product_discount={product?.discount}/>
                 )
               })}
           </Row>
@@ -47,4 +48,4 @@ const ShortsPage: React.FC = () => {
   )
 }
 
-export default ShortsPage
+export default AccessoriesPage

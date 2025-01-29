@@ -49,15 +49,15 @@ const ProductsGridCard: React.FC<ICommerceCard> = ({product_name, product_collec
         <Row>
           {product_discount ? (
             <div style={{display: 'flex', alignItems: 'center'}}>
-              <Typography.Text style={{fontFamily: 'Bona Nova SC', marginTop: 2, fontWeight: 500, color: 'red', fontSize: 17, marginLeft: 5, textDecoration: 'line-through' }}>
+              <Typography.Text style={{fontFamily: 'Bona Nova SC, sans serif', marginTop: 2, fontWeight: 500, color: 'red', fontSize: 17, marginLeft: 5, textDecoration: 'line-through' }}>
               {`R$ ${product_price}`}
               </Typography.Text>
-              <Typography.Text style={{fontFamily: 'Bona Nova SC', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
+              <Typography.Text style={{fontFamily: 'Bona Nova SC, sans serif', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
                 {`R$ ${(product_price - (product_price*product_discount/100)).toFixed(2)}`}
               </Typography.Text>
             </div>
           ) : (
-            <Typography.Text style={{fontFamily: 'Bona Nova SC', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
+            <Typography.Text style={{fontFamily: 'Bona Nova SC, sans serif', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
               {`R$ ${product_price}`}
             </Typography.Text>
           )}

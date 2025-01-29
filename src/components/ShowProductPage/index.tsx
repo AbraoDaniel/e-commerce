@@ -1,14 +1,19 @@
 import { useLocation } from "react-router-dom"
 import ImageSlider from "../ImageSlider";
-import { Col, Image, Row, Typography } from 'antd'
+import { Button, Col, Image, Row, Typography } from 'antd'
+import { useState } from "react";
+import { HeartOutlined, MinusOutlined, PlusOutlined, ShoppingOutlined } from "@ant-design/icons";
 const ShowProductPage: React.FC = () => {
   const location = useLocation()
-  const images = [{path: '../src/assets/TShirts/camiseta-preta.png'}, 
-    {path: '../src/assets/TShirts/camiseta-preta.png'},
-    {path: '../src/assets/TShirts/camiseta-preta.png'},
-    {path: '../src/assets/TShirts/camiseta-preta.png'},
-    {path: '../src/assets/TShirts/camiseta-preta.png'},
+  const images = [{path: `.${location?.state?.product_image}`}, 
+    {path: `.${location?.state?.product_image}`},
+    {path: `.${location?.state?.product_image}`},
+    {path: `.${location?.state?.product_image}`},
+    {path: `.${location?.state?.product_image}`},
+    {path: `.${location?.state?.product_image}`},
+    {path: `.${location?.state?.product_image}`},
   ]
+  const [productQty, setProductQty] = useState(1)
 
   console.log(location?.state, '??')
   return (
@@ -21,8 +26,7 @@ const ShowProductPage: React.FC = () => {
             </Col>
             <Col xs={10}>
               <div>
-                {/* {JSON.stringify(location?.state?.product_discount)} */}
-                <Image src={'../src/assets/TShirts/camiseta-preta.png'} width={700} height={700} />
+                <Image src={`.${location?.state?.product_image}`} width={700} height={700} />
                 {location?.state?.product_discount && (
                   <div className="discount-product-flag" >
                     <Typography.Text style={{color: 'white', fontSize: 18, fontFamily: 'Bona Nova SC, sans serif'}}>{`-${location?.state?.product_discount}%`}</Typography.Text>
@@ -41,6 +45,27 @@ const ShowProductPage: React.FC = () => {
                   <Typography.Text className="payment-product-price">
                     {`R$ ${!location?.state?.product_discount ? location?.state?.product_price : ((location?.state?.product_price - (location?.state?.product_price*location?.state?.product_discount/100)).toFixed(2))}`}
                   </Typography.Text>
+                </Row>
+                <Row>
+                  <Typography.Text className="payment-product-quantity">
+                    {'Quantidade'}
+                  </Typography.Text>
+                </Row>
+                <Row justify="space-between" className="product-quantity-input">
+                    <MinusOutlined className="quantity-operator" onClick={() => productQty > 1 && setProductQty((state) => state - 1)}/>
+                      {productQty}
+                    <PlusOutlined className="quantity-operator" onClick={() => setProductQty((state) => state + 1)}/>
+                </Row>
+                <Row style={{alignItems: 'center', width: 600}} justify="space-between">
+                  <Col>
+                    <Button className="product-add-to-cart-button">
+                      {'ADICIONAR AO CARRINHO'}
+                      <ShoppingOutlined style={{marginBottom: 4, fontSize: 25}} onClick={() => alert("adicionar ao carrinho")} />
+                    </Button>
+                  </Col>
+                  <Col>
+                    <HeartOutlined style={{fontSize: 20, marginTop: 20, cursor: 'pointer', border: '1px solid black', borderRadius: 25, padding: '10px 10px'}} onClick={() => alert('favoritos')}/>
+                  </Col>
                 </Row>
               </div>
             </Col>

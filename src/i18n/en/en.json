@@ -1,5 +1,8 @@
 {
   "tshirts": "T-shirts",
   "shorts": "Shorts",
-  "coats": "Coats"
+  "coats": "Coats",
+  "pants": "Pants",
+  "shoes": "Shoes",
+  "accessories": "Accessories"
 }

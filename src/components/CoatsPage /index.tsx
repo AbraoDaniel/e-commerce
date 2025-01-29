@@ -1,6 +1,7 @@
 import { Row, Typography } from "antd"
 import { useTranslation } from "react-i18next"
 import ProductsGridCard from "../ProductsGridCard"
+import { useEffect } from "react"
 
 const CoatsPage: React.FC = () => {
   const { t } = useTranslation()
@@ -11,6 +12,10 @@ const CoatsPage: React.FC = () => {
     {name: 'Casaco preto', collection: 'Basic', price: 89.99, image: './src/assets/Coats/casaco-preto.png', favorite: false },
     {name: 'Casaco preto', collection: 'Basic', price: 89.99, image: './src/assets/Coats/casaco-preto.png', favorite: false },
   ]
+
+  useEffect(() => {
+    window.scrollTo({top: 0, behavior: 'smooth'})
+  }, [])
 
   return (
     <>
