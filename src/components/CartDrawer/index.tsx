@@ -2,6 +2,7 @@ import { CloseOutlined, MinusOutlined, PlusOutlined, ShoppingOutlined } from "@a
 import { Drawer, Row, Typography, Image, Col, Button } from "antd"
 import { useEffect, useState } from "react"
 import { useCartContent } from "../../hooks/useCardContent"
+import CreditCardModal from "../CreditCardModal"
 
 interface ICartDrawer {
   setVisibleCartDrawer: (value: boolean) => void
@@ -16,6 +17,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
   })?.filter(b => b))
   const [totalPrice, setTotalPrice] = useState(0)
   const { totalItemsInCard, setTotalItemsInCard } = useCartContent()
+  const [showCreditCardModal, setShowCreditCardModal] = useState(false)
 
   useEffect(() => {
     cartList?.map((product) => {
@@ -36,6 +38,10 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
     ))
   }
 
+  function handleOpenCreditCardModal() {
+    setShowCreditCardModal(true)
+  }
+ 
 
   return (
     <Drawer 
@@ -70,7 +76,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
                 </Typography.Text>
               </Row>
               <Row justify="center">
-                <Button className="cart-checkout-button" onClick={() => alert('finalizou!')}>
+                <Button className="cart-checkout-button" onClick={handleOpenCreditCardModal}>
                   {'FINALIZAR COMPRA'}
                 </Button>
               </Row>
@@ -79,6 +85,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
         </>
       }
     >
+      {showCreditCardModal && (<CreditCardModal setShowCreditCardModal={setShowCreditCardModal}/>)}
       {cartList?.length > 0 ? (
         <>
           {cartList?.map((product) => {
