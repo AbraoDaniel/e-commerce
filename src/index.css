@@ -695,7 +695,19 @@ button:focus-visible {
 
 
 .credit-card-modal {
-  width: 800px !important;
+  width: 700px !important;
+  .ant-btn-primary {
+    background-color: black;
+    color: white;
+  }
+  .ant-btn-primary:hover, .ant-btn-default:hover {
+    background-color: transparent !important;
+    color: black !important;
+    border-color: black !important;
+  }
+  .ant-btn-default {
+    background-color: transparent;
+  }
   .credit-card-wrap {
     .credit-card {
       background-image: linear-gradient(to right, #000000 , #434343);
@@ -730,7 +742,7 @@ button:focus-visible {
 
   .credit-card-form {
     margin-top: 20px;
-    padding: 10px 100px;
+    padding: 10px 50px;
     .ant-form-item-required {
       font-size: 18px;
     }

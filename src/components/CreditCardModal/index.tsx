@@ -1,8 +1,11 @@
 import { Col, Modal, Row, Form, Input, DatePicker } from "antd"
 import { useState } from "react"
-import { VisaCardFlag } from "../../assets/CardsFlags"
+import { EloCardFlag, MastercardCardFlag, VisaCardFlag } from "../../assets/CardsFlags"
 import { EllipsisOutlined } from "@ant-design/icons"
 import dayjs from 'dayjs'
+import { validateCpf } from "../../util/validateCpf"
+import { cpfMask } from "../../util/cpfMask"
+import { getCardBrand } from "../../util/getCardBrand"
 
 
 interface ICreditCardModal {
@@ -14,18 +17,51 @@ const CreditCardModal: React.FC<ICreditCardModal> = ({setShowCreditCardModal}) =
   const [cardName, setCardName] = useState('')
   const [cardExpiration, setCardExpiration] = useState('')
   const [cardCvv, setCardCvv] = useState('')
+  const [cpfInputValue, setCpfInputValue] = useState('')
   const [isFlipped, setIsFlipped] = useState(false)
-
+  
   function handleChangeFormValue() {
     const formFields = creditCardForm?.getFieldsValue()
     setCardNumber(formFields?.credit_card_number)
     setCardName(formFields?.credit_card_name)
     setCardExpiration(dayjs(formFields?.credit_card_expiration_date).format('MM/YY'))
-    setCardCvv(formFields?.credit_card_cvv)
+    setCardCvv(formFields?.credit_card_cvv?.slice(0, 3))
+    creditCardForm.setFieldsValue({ credit_card_cvv: formFields?.credit_card_cvv?.slice(0, 3) })
   }
 
+  function handleRegisterNewCreditCard() {
+    alert('cadastrou!!')
+  }
+
+  function handleChangeCpfValue(e: React.ChangeEvent<HTMLInputElement>) {
+    const maskedCpf = cpfMask(e.target.value)
+    setCpfInputValue(maskedCpf)
+    creditCardForm.setFieldsValue({ credit_card_cpf: maskedCpf })
+  }
+
+  function renderCardFlag() {
+    const flag = getCardBrand(cardNumber)
+    switch (flag) {
+      case 'Visa':
+        return <VisaCardFlag size={80} />
+      case 'Mastercard': 
+        return <MastercardCardFlag size={80} />
+      case 'Elo':
+        return <EloCardFlag size={80}/>
+      default:
+        return <VisaCardFlag size={80} />
+    }
+  }
+  
   return (
-    <Modal open onCancel={() => setShowCreditCardModal(false)} className="credit-card-modal">
+    <Modal 
+      open 
+      onCancel={() => setShowCreditCardModal(false)} 
+      className="credit-card-modal"
+      cancelText="Cancelar"
+      okText="Cadastrar cartão"
+      onOk={handleRegisterNewCreditCard}
+    >
       <div className="credit-card-wrap">
         <Row justify="center">
           <Col>
@@ -37,7 +73,7 @@ const CreditCardModal: React.FC<ICreditCardModal> = ({setShowCreditCardModal}) =
                     <EllipsisOutlined style={{ fontSize: 25, color: "white" }} />
                   </div>
                   <div className="credit-card-flag">
-                    <VisaCardFlag size={80} />
+                    {renderCardFlag()}
                   </div>
                 </Row>
                 <div style={{ backgroundColor: "transparent", height: 130 }} />
@@ -77,7 +113,27 @@ const CreditCardModal: React.FC<ICreditCardModal> = ({setShowCreditCardModal}) =
             </Col>
             <Col xs={24}>
               <Form.Item className="form-credit-card-name" label="Nome presente no cartão" name="credit_card_name" rules={[{required: true, message: 'Por favor, informe o nome presente no cartão'}]}>
-                <Input maxLength={30} placeholder="João da Silva" className="credit-card-input" onChange={() => handleChangeFormValue()}/>
+                <Input maxLength={25} placeholder="João da Silva" className="credit-card-input" onChange={() => handleChangeFormValue()}/>
+              </Form.Item>
+            </Col>
+            <Col xs={24}>
+              <Form.Item className="form-credit-card-cpf" label="Cpf do titular do cartão" name="credit_card_cpf" rules={[
+                {required: true, message:''},
+                {validator: (_, value) => {
+                  if (value?.length < 11) {
+                    return Promise.reject('Insira um cpf válido')
+                  } else {
+                    const isAValidCpf = validateCpf(value)
+                    if (!isAValidCpf) {
+                      return Promise.reject('Cpf inválido')
+                    }
+                  }
+                } }
+                
+                ]}>
+                <Input maxLength={14} placeholder="122.123.124-67" className="credit-card-input" onChange={handleChangeCpfValue}
+                  value={cpfInputValue}
+                />
               </Form.Item>
             </Col>
             <Row justify="space-between" style={{alignItems: 'center'}}>
@@ -96,7 +152,7 @@ const CreditCardModal: React.FC<ICreditCardModal> = ({setShowCreditCardModal}) =
                     }
                   }
                 ]}>
-                  <Input type="number" onClick={() => setIsFlipped(true)} onBlur={() => setIsFlipped(false)} maxLength={3} placeholder="111" className="credit-card-input" onChange={() => handleChangeFormValue()}/>
+                  <Input type="number" min={1} onClick={() => setIsFlipped(true)} onBlur={() => setIsFlipped(false)} maxLength={3} placeholder="111" className="credit-card-input" onChange={() => handleChangeFormValue()}/>
                 </Form.Item>
               </Col>
             </Row>
