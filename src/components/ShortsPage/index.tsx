@@ -6,11 +6,11 @@ import { useEffect } from "react"
 const ShortsPage: React.FC = () => {
   const { t } = useTranslation()
   const products = [
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: true },
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false },
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false },
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false },
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false },
+    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: true, code: 12 },
+    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false, code: 13 },
+    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false, code: 14 },
+    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false, code: 15 },
+    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false, code: 16 },
   ]
 
   useEffect(() => {
@@ -37,7 +37,9 @@ const ShortsPage: React.FC = () => {
               {products?.map((product) => {
                 return (
                   <ProductsGridCard product_name={product?.name} product_collection={product?.collection} 
-                  product_price={product?.price} product_image={product?.image} product_favorite={product?.favorite}/>
+                  product_price={product?.price} product_image={product?.image} product_favorite={product?.favorite}
+                  product_code={product?.code}
+                  />
                 )
               })}
           </Row>

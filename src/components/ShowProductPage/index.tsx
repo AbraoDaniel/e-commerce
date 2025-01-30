@@ -3,6 +3,7 @@ import ImageSlider from "../ImageSlider";
 import { Button, Col, Image, Row, Typography } from 'antd'
 import { useState } from "react";
 import { HeartOutlined, MinusOutlined, PlusOutlined, ShoppingOutlined } from "@ant-design/icons";
+import { useCartContent } from "../../hooks/useCardContent";
 const ShowProductPage: React.FC = () => {
   const location = useLocation()
   const images = [{path: `.${location?.state?.product_image}`}, 
@@ -14,8 +15,17 @@ const ShowProductPage: React.FC = () => {
     {path: `.${location?.state?.product_image}`},
   ]
   const [productQty, setProductQty] = useState(1)
+  const { setTotalItemsInCard, totalItemsInCard } = useCartContent()
 
-  console.log(location?.state, '??')
+  function handleClickAddToCart() {
+    const productAlreadyInCart = localStorage.getItem(`@Danti:Cart_Products_${location?.state?.product_name?.toLowerCase()?.replace(" ", '-')}_${location?.state?.product_code}`)
+    console.log(productAlreadyInCart, 'productAlreadyInCart?')
+    if (!productAlreadyInCart) {
+      localStorage.setItem(`@Danti:Cart_Products_${location?.state?.product_name?.toLowerCase()?.replace(" ", '-')}_${location?.state?.product_code}`, JSON.stringify({...location?.state, product_qty: productQty}))
+      setTotalItemsInCard(totalItemsInCard + 1)
+    }
+  }
+
   return (
     <div className="products-view">
       <div className="reduced-view" style={{color: 'black'}}>
@@ -58,9 +68,9 @@ const ShowProductPage: React.FC = () => {
                 </Row>
                 <Row style={{alignItems: 'center', width: 600}} justify="space-between">
                   <Col>
-                    <Button className="product-add-to-cart-button">
+                    <Button className="product-add-to-cart-button" onClick={handleClickAddToCart}>
                       {'ADICIONAR AO CARRINHO'}
-                      <ShoppingOutlined style={{marginBottom: 4, fontSize: 25}} onClick={() => alert("adicionar ao carrinho")} />
+                      <ShoppingOutlined style={{marginBottom: 4, fontSize: 25}}  />
                     </Button>
                   </Col>
                   <Col>

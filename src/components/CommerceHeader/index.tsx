@@ -1,8 +1,9 @@
-import { Input, Layout, Menu, Row, Space } from 'antd';
+import { Badge, Input, Layout, Menu, Row, Space } from 'antd';
 import { HeartOutlined, SearchOutlined, ShoppingOutlined, UserOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CartDrawer from '../CartDrawer';
+import { useCartContent } from '../../hooks/useCardContent';
 
 const CommerceHeader: React.FC = () => {
   const navigate = useNavigate()
@@ -10,6 +11,7 @@ const CommerceHeader: React.FC = () => {
   const { Header } = Layout;
   const [currentTab, setCurrentTab] = useState(location?.pathname?.split('/')[1])
   const [visibleCartDrawer, setVisibleCartDrawer] = useState(false)
+  const { totalItemsInCard } = useCartContent()
 
   const items = [
     {key: 'tshirts', label: 'CAMISETAS'},
@@ -19,6 +21,7 @@ const CommerceHeader: React.FC = () => {
     {key: 'shoes', label: 'CALÇADOS'},
     {key: 'accessories', label: 'ACESSÓRIOS'},
   ]
+  
 
   useEffect(() => {
     const path = location?.pathname?.split('/')[1]
@@ -27,6 +30,7 @@ const CommerceHeader: React.FC = () => {
 
   return (
     <Header className="main-header">
+        {visibleCartDrawer && <CartDrawer setVisibleCartDrawer={setVisibleCartDrawer} />}
         <Row justify="center">
           <div className="header-logo" onClick={() => {
             navigate('/')
@@ -50,10 +54,12 @@ const CommerceHeader: React.FC = () => {
           <span style={{position: 'absolute', right: 50, fontSize: 25}}>
             <UserOutlined style={{marginRight: 10, cursor: 'pointer'}} onClick={() => alert('usuário')}/>
             <HeartOutlined style={{marginRight: 10, cursor: 'pointer'}} onClick={() => alert('favoritos')}/>
-            <ShoppingOutlined onClick={() => setVisibleCartDrawer(true)} />
+            <Badge count={totalItemsInCard} style={{backgroundColor: 'black'}}>
+              <ShoppingOutlined style={{fontSize: 25}} onClick={() => setVisibleCartDrawer(true)} />
+            </Badge>
           </span>
         </Row>
-        {visibleCartDrawer && <CartDrawer setVisibleCartDrawer={setVisibleCartDrawer} />}
+        
       </Header>
   )
 }
