@@ -32,36 +32,36 @@ const CommerceCard:React.FC<ICommerceCard> = ({product_name, product_collection,
         <img
           alt={product_name}
           src={product_image}
-          style={{height: 367, width: "100%", borderRadius: 6}}
+          className="card-image"
         />
         <div onMouseEnter={() => setHeartHover(true)} onMouseLeave={() => setHeartHover(false)}>
-          {heartHover ? (<HeartFilled style={{ cursor: 'pointer', fontSize: 25, position: 'relative', left: 340, bottom: 350}}/>) : (
-            <HeartOutlined className='product-favorite-icon' style={{ cursor: 'pointer', fontSize: 25, position: 'relative', left: 340, bottom: 350}}/>
+          {heartHover ? (<HeartFilled className="main-product-favorite-icon" />) : (
+            <HeartOutlined className='main-product-favorite-icon'/>
           )}
         </div>
       </Row>
       <Row>
-        <Typography.Text style={{fontWeight: 600, marginLeft: 5, fontSize: 16}}>
+        <Typography.Text className="product-name" >
           {product_name}
         </Typography.Text>
       </Row>
       <Row>
-        <Typography.Text style={{fontWeight: 500,  marginLeft: 5}}>
+        <Typography.Text className="product-collection">
           {product_collection}
         </Typography.Text>
       </Row>
       <Row>
         {product_discount ? (
               <div style={{display: 'flex', alignItems: 'center'}}>
-                <Typography.Text style={{fontFamily: 'Inter, sans serif', marginTop: 2, fontWeight: 500, color: 'red', fontSize: 14, marginLeft: 5, textDecoration: 'line-through' }}>
+                <Typography.Text className="product-price-with-discount">
                 {`R$ ${product_price}`}
                 </Typography.Text>
-                <Typography.Text style={{fontFamily: 'Inter, sans serif', marginTop: 2, fontWeight: 600, fontSize: 16, marginLeft: 5 }}>
+                <Typography.Text className="product-price-without-discount">
                   {`R$ ${(product_price - (product_price*product_discount/100)).toFixed(2)}`}
                 </Typography.Text>
               </div>
             ) : (
-              <Typography.Text style={{fontFamily: 'Inter, sans serif', marginTop: 2, fontWeight: 600, fontSize: 16, marginLeft: 5 }}>
+              <Typography.Text className="product-price-without-discount">
                 {`R$ ${product_price}`}
               </Typography.Text>
             )}

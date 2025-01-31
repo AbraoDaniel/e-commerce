@@ -57,7 +57,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
       open 
       width={700}
       onClose={() => setVisibleCartDrawer(false)}
-      className={cartList?.length > 0 ? '' : 'cart-drawer-empty'}
+      className={cartList?.length > 0 ? 'cart-drawer' : 'cart-drawer-empty'}
       footer={
         <>
           {cartList?.length > 0 ? (
@@ -92,10 +92,10 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
             return (
               <div className="cart-product-view" key={`${product?.product_name?.toLowerCase()?.replace(" ", "-")}_${product?.product_code}`}>
                 <Row  style={{width: '100%'}}>
-                  <Col xs={6}>
-                    <Image preview={false} src={`.${product?.product_image}`} width={150} height={150} />
+                  <Col xs={8} lg={6}>
+                    <Image preview={false} src={`.${product?.product_image}`} className="cart-image"/>
                   </Col>
-                  <Col xs={18}>
+                  <Col xs={15} lg={18}>
                     <Row justify="space-between">
                       <Typography.Text className="cart-product-name">{product?.product_name}</Typography.Text>
                       <CloseOutlined style={{marginRight: 10}} onClick={() => handleClickRemoveFromCart(product?.product_name, product?.product_code)}/>
@@ -104,7 +104,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
                       <Typography.Text className="cart-product-price">{
                         <>
                         {product?.product_discount && (
-                          <Typography.Text style={{fontFamily: 'Inter, sans serif', marginTop: 2, fontWeight: 500, color: 'red', fontSize: 17, marginRight: 5, textDecoration: 'line-through' }}>
+                          <Typography.Text className="cart-product-price-with-discount" >
                             {`R$ ${product?.product_price}`}
                           </Typography.Text>
                         )}

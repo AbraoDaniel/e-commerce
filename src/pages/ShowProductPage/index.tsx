@@ -42,11 +42,12 @@ const ShowProductPage: React.FC = () => {
       <div className="reduced-view" style={{color: 'black'}}>
         <div className="product-show">
           <Row style={{width: '100%'}} >
-            <Col xs={4} style={{display: 'flex', justifyContent: 'center'}}>
-              <ImageSlider images={images} />
+            <Col xs={24} lg={3} className="vertical-image-slider" >
+              <ImageSlider images={images} vertical verticalSwiping slidesToShow={4} dots={false}/>
             </Col>
-            <Col xs={10}>
-              <div>
+            
+            <Col lg={11}>
+              <div className="product-image-preview">
                 <Image src={`.${location?.state?.product_image}`} width={700} height={700} />
                 {location?.state?.product_discount && (
                   <div className="discount-product-flag" >
@@ -55,7 +56,7 @@ const ShowProductPage: React.FC = () => {
                 )}
               </div>
             </Col>
-            <Col xs={10}>
+            <Col lg={10}>
               <div className="payment-area">
                 <Row>
                   <Typography.Text className="payment-product-name">
@@ -65,7 +66,7 @@ const ShowProductPage: React.FC = () => {
                 <Row style={{marginBottom: 15}}>
                   <Rate allowHalf disabled defaultValue={4.5} className="product-rate"/>
                   <div className="product-rate-show">
-                    <Typography.Text style={{color: 'rgb(115, 115, 115)'}}>{'9.5'}</Typography.Text>
+                    <Typography.Text style={{color: 'rgb(115, 115, 115)'}} className='product-rate-show-number'>{'9.5'}</Typography.Text>
                   </div>
                   <Typography.Text className="product-rate-description" onClick={() => alert('mostrar avaliações')}>{'Ver avaliações (20)'}</Typography.Text>
                 </Row>
@@ -75,6 +76,9 @@ const ShowProductPage: React.FC = () => {
                     {`R$ ${!location?.state?.product_discount ? location?.state?.product_price : ((location?.state?.product_price - (location?.state?.product_price*location?.state?.product_discount/100)).toFixed(2))}`}
                   </Typography.Text>
                 </Row>
+                <Col xs={24} lg={3} className="horizontal-image-slider">
+                  <ImageSlider images={images} vertical={false} verticalSwiping={false} slidesToShow={1} dots/>
+                </Col>
                 <div className="size-selection">
                   <Row justify="space-between">
                     <Typography.Text style={{fontSize: 16}}>
@@ -109,7 +113,7 @@ const ShowProductPage: React.FC = () => {
                       {productQty}
                     <PlusOutlined className="quantity-operator" onClick={() => setProductQty((state) => state + 1)}/>
                 </Row>
-                <Row style={{alignItems: 'center', width: 600}} justify="space-between">
+                <Row justify="space-between">
                   <Col>
                     <Button className="product-add-to-cart-button" onClick={handleClickAddToCart}>
                       {'ADICIONAR AO CARRINHO'}

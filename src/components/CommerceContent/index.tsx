@@ -28,7 +28,7 @@ const CommerceContent: React.FC<ICommerceContent> = ({category, products}) => {
   }
   
   return (
-    <Content style={{ padding: '10px 48px', marginBottom: 20 }}>
+    <Content className='content-main-layout' >
       <Typography.Text className={'category-label'} onClick={handleClickCategory}>{t(category)}</Typography.Text>
       <div className='content-wrap'>
         {products?.map((product) => {

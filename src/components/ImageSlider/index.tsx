@@ -8,18 +8,22 @@ import "slick-carousel/slick/slick-theme.css";
 interface IImageSlider {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   images: any[]
+  vertical: boolean
+  verticalSwiping: boolean
+  slidesToShow: number
+  dots: boolean
 }
-const ImageSlider: React.FC<IImageSlider> = ({images}) => {
+const ImageSlider: React.FC<IImageSlider> = ({images, vertical, verticalSwiping, slidesToShow, dots}) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const sliderRef = useRef<Slider | null>(null);
   const settings = {
-    dots: false,
+    dots: dots,
     infinite: false,
     speed: 300,
-    slidesToShow: 4,
+    slidesToShow: slidesToShow,
     slidesToScroll: 1,
-    vertical: true,
-    verticalSwiping: true,
+    vertical: vertical,
+    verticalSwiping: verticalSwiping,
     arrows: false,
   }
   
@@ -45,7 +49,7 @@ const ImageSlider: React.FC<IImageSlider> = ({images}) => {
               className={`thumbnail ${selectedIndex === index ? "active" : ""}`}
               onClick={() => setSelectedIndex(index)}
             >
-              <Image preview={false} src={image.path} width={150} height={150} />
+              <Image preview={false} src={image.path} className="thumbnail-image" />
             </div>
           ))}
         </Slider>
