@@ -22,6 +22,8 @@ interface ProductsContextProps {
   all_products: IAllProducts[]
   searchedProducts: IAllProducts[]
   setSearchedProducts: (value: IAllProducts[]) => void
+  favoriteProducts: IProduct[]
+  setFavoriteProducts: (value: IProduct[]) => void
 }
 
 export const ProductsContext = createContext<ProductsContextProps>(
@@ -32,14 +34,21 @@ export const ProductsProvider: React.FC<{children: React.ReactNode}> = ({ childr
   const teste = 'aaaa'
   const all_products = defaultProductsList
   const [searchedProducts, setSearchedProducts] = useState(all_products)
-  
+  const [favoriteProducts, setFavoriteProducts] = useState(
+    searchedProducts.flatMap(category => 
+      category?.products?.filter(product => product?.favorite) || []
+    )
+  )
+
   return (
     <ProductsContext.Provider
       value={{
         teste,
         all_products,
         searchedProducts,
-        setSearchedProducts
+        setSearchedProducts,
+        favoriteProducts,
+        setFavoriteProducts
       }}
     >
       {children}

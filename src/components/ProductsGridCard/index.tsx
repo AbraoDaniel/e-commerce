@@ -25,7 +25,7 @@ const ProductsGridCard: React.FC<ICommerceCard> = ({product_name, product_collec
   return (
     <Col xs={6} style={{display: 'grid', justifyContent: 'center', padding: 0, marginRight: -50}}>
       <Card className="product-view-card" onClick={handleClickToViewProduct}> 
-        <Row style={{marginBottom: '-20px'}}>
+        <Row style={{marginBottom: '-30px'}}>
           <img
             alt={product_name}
             src={product_image}
@@ -38,7 +38,7 @@ const ProductsGridCard: React.FC<ICommerceCard> = ({product_name, product_collec
           </div>
         </Row>
         <Row>
-          <Typography.Text style={{fontWeight: 600, marginLeft: 5}}>
+          <Typography.Text style={{fontWeight: 600, marginLeft: 5, fontSize: 16}}>
             {product_name}
           </Typography.Text>
         </Row>
@@ -50,15 +50,15 @@ const ProductsGridCard: React.FC<ICommerceCard> = ({product_name, product_collec
         <Row>
           {product_discount ? (
             <div style={{display: 'flex', alignItems: 'center'}}>
-              <Typography.Text style={{fontFamily: 'Bona Nova SC, sans serif', marginTop: 2, fontWeight: 500, color: 'red', fontSize: 17, marginLeft: 5, textDecoration: 'line-through' }}>
+              <Typography.Text style={{fontFamily: 'Inter, sans serif', marginTop: 2, fontWeight: 500, color: 'red', fontSize: 14, marginLeft: 5, textDecoration: 'line-through' }}>
               {`R$ ${product_price}`}
               </Typography.Text>
-              <Typography.Text style={{fontFamily: 'Bona Nova SC, sans serif', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
+              <Typography.Text style={{fontFamily: 'Inter, sans serif', marginTop: 2, fontWeight: 600, fontSize: 16, marginLeft: 5 }}>
                 {`R$ ${(product_price - (product_price*product_discount/100)).toFixed(2)}`}
               </Typography.Text>
             </div>
           ) : (
-            <Typography.Text style={{fontFamily: 'Bona Nova SC, sans serif', marginTop: 2, fontWeight: 600, fontSize: 18, marginLeft: 5 }}>
+            <Typography.Text style={{fontFamily: 'Inter, sans serif', marginTop: 2, fontWeight: 600, fontSize: 16, marginLeft: 5 }}>
               {`R$ ${product_price}`}
             </Typography.Text>
           )}

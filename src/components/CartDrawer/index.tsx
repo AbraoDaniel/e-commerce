@@ -104,7 +104,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
                       <Typography.Text className="cart-product-price">{
                         <>
                         {product?.product_discount && (
-                          <Typography.Text style={{fontFamily: 'Bona Nova SC, sans serif', marginTop: 2, fontWeight: 500, color: 'red', fontSize: 17, marginRight: 5, textDecoration: 'line-through' }}>
+                          <Typography.Text style={{fontFamily: 'Inter, sans serif', marginTop: 2, fontWeight: 500, color: 'red', fontSize: 17, marginRight: 5, textDecoration: 'line-through' }}>
                             {`R$ ${product?.product_price}`}
                           </Typography.Text>
                         )}

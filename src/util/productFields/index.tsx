@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import AccessoriesPage from "../../components/AccessoriesPage";
-import CoatsPage from "../../components/CoatsPage ";
-import CommerceHome from "../../components/CommerceHome";
-import PantsPage from "../../components/PantsPage";
-import ShoesPage from "../../components/ShoesPage";
-import ShortsPage from "../../components/ShortsPage";
-import ShowProductPage from "../../components/ShowProductPage";
-import TshirtsPage from "../../components/TshirtsPage";
+import AccessoriesPage from "../../pages/AccessoriesPage";
+import CoatsPage from "../../pages/CoatsPage ";
+import CommerceHome from "../../pages/CommerceHome";
+import PantsPage from "../../pages/PantsPage";
+import ShoesPage from "../../pages/ShoesPage";
+import ShortsPage from "../../pages/ShortsPage";
+import ShowProductPage from "../../pages/ShowProductPage";
+import TshirtsPage from "../../pages/TshirtsPage";
+import WishListPage from "../../pages/WishListPage";
 
 export const routePathsAndElements: any = [
   {path: '/', element: <CommerceHome />},
@@ -17,6 +18,7 @@ export const routePathsAndElements: any = [
   {path: '/shoes', element: <ShoesPage />},
   {path: '/accessories', element: <AccessoriesPage />},
   {path: '/products/:product_name', element: <ShowProductPage />},
+  {path: '/wishlist', element: <WishListPage />}
 ]
 
 export const defaultProductsList = [{

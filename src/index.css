@@ -133,26 +133,6 @@ button:focus-visible {
   }
 }
 
-.category-label {
-  font-family: 'Bona Nova SC', sans-serif;
-  font-size: 30px;
-  cursor: pointer;
-}
-
-.category-header {
-  background: white;
-  padding: 12px 165px;
-  font-family: 'Inter', sans-serif;
-  .category-product-label {
-    font-size: 20px;
-  }
-
-  .category-name {
-    font-size: 40px;
-    font-family: 'Bona Nova SC', sans-serif;
-  }
-}
-
 .products-view {
   background: white;
   display: flex;
@@ -192,7 +172,7 @@ button:focus-visible {
     padding: 2px 8px;
     position: relative;
     bottom: 700px;
-    font-family: 'Bona Nova SC', sans-serif; 
+    font-family: 'Inter', sans-serif; 
   }
 }
 
@@ -288,22 +268,22 @@ button:focus-visible {
   padding: 8px 8px;
 
   .cart-product-price {
-    font-size: 20px;
-    font-family: 'Bona Nova SC', sans-serif;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
   }
   
   .cart-product-name {
-    font-size: 30px;
-    font-family: 'Bona Nova SC', sans-serif;
+    font-size: 26px;
+    font-family: 'Inter', sans-serif;
   }
   
   .cart-product-quantity-input {
     background-color: white;
-    margin-top: 5px;
+    margin-top: 35px;
     align-items: center;
     padding: 5px 10px;
-    width: 100px;
-    height: 40px;
+    width: 90px;
+    height: 35px;
     border: 1px solid black;
     border-radius: 25px;
     .quantity-operator {
@@ -484,7 +464,7 @@ button:focus-visible {
 }
 
 .category-label {
-  font-family: 'Bona Nova SC', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 30px;
   cursor: pointer;
 }
@@ -499,7 +479,7 @@ button:focus-visible {
 
   .category-name {
     font-size: 40px;
-    font-family: 'Bona Nova SC', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 }
 
@@ -616,12 +596,12 @@ button:focus-visible {
 
 .payment-area {
   .payment-product-name {
-    font-family: 'Bona Nova SC', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 48px;
   }
   
   .payment-product-price {
-    font-family: 'Bona Nova SC', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 20px;
   }
   
@@ -629,6 +609,107 @@ button:focus-visible {
     font-size: 16px;
     margin-top: 50px;
     font-family: 'Inter';
+  }
+
+  .product-rate-show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    margin-left: 10px;
+    border: 1px solid rgb(115, 115, 115);
+  }
+
+  .product-rate {
+    color: black;
+    margin-top: 5px;
+    font-size: 16px;
+  }
+
+  .product-rate-description {
+    margin-top: 2px;
+    margin-left: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .size-selection {
+    width: 64%;
+    margin-top: 150px;
+    min-height: 105px;
+    .sizes-available {
+      margin-top: 20px;
+      min-height: 105px;
+      width: 500px;
+
+      .text-container {
+        width: 91px;
+        height: 54px;
+        margin-right: 4px;
+        margin-bottom: 4px;
+        padding: 16px;
+        box-sizing: border-box;
+        border: 1px solid rgb(17, 17, 17);
+        border-radius: 4px;
+        color: rgb(17, 17, 17);
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+        overflow-wrap: break-word;
+        display: inline-flex;
+        vertical-align: middle;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        justify-content: center;
+        transition: 0.3s ease-in-out;
+        position: relative;
+        cursor: pointer;
+        .text-label {
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          justify-content: center;
+          width: 100%;
+          cursor: inherit;
+          .input-radio-sizes {
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            margin: 0px;
+            opacity: 0;
+            padding: 0px;
+            position: absolute;
+            z-index: 1;
+            border: none;
+            cursor: inherit;
+          }
+        }
+      }
+
+      .product-size-wrap {
+        background-color: #43434331;
+        padding: 2px;
+        margin-right: 6px;
+        margin-bottom: 6px;
+        width: 91px;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        /* .input-radio-sizes {
+          width: 100%;
+          height: 100%;
+          margin: 0;
+        } */
+      }
+    }
   }
 
   .product-quantity-input {

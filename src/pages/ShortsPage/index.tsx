@@ -1,14 +1,14 @@
 import { Row, Typography } from "antd"
 import { useTranslation } from "react-i18next"
-import ProductsGridCard from "../ProductsGridCard"
+import ProductsGridCard from "../../components/ProductsGridCard"
 import { useEffect } from "react"
 import { useProducts } from "../../hooks/useProducts"
 
-const AccessoriesPage: React.FC = () => {
+const ShortsPage: React.FC = () => {
   const { t } = useTranslation()
   const { searchedProducts } = useProducts()
 
-  const products = searchedProducts?.filter((a) => a?.label === 'accessories')[0]?.products
+  const products = searchedProducts?.filter((a) => a?.label === 'shorts')[0]?.products
 
   useEffect(() => {
     window.scrollTo({top: 0, behavior: 'smooth'})
@@ -24,7 +24,7 @@ const AccessoriesPage: React.FC = () => {
         </Row>
         <Row>
           <Typography.Text className="category-name">
-            {t('accessories')}
+            {t('shorts')}
           </Typography.Text>
         </Row>
       </div>
@@ -34,7 +34,7 @@ const AccessoriesPage: React.FC = () => {
               {products?.map((product) => {
                 return (
                   <ProductsGridCard product_name={product?.name} product_collection={product?.collection} 
-                  product_price={product?.price} product_image={product?.image} product_favorite={product?.favorite} product_discount={product?.discount}
+                  product_price={product?.price} product_image={product?.image} product_favorite={product?.favorite}
                   product_code={product?.code}
                   />
                 )
@@ -46,4 +46,4 @@ const AccessoriesPage: React.FC = () => {
   )
 }
 
-export default AccessoriesPage
+export default ShortsPage

@@ -1,5 +1,5 @@
 import { useProducts } from "../../hooks/useProducts"
-import CommerceContent from "../CommerceContent"
+import CommerceContent from "../../components/CommerceContent"
 
 const CommerceHome:React.FC = () => {
   const { searchedProducts } = useProducts()

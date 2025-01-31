@@ -1,14 +1,14 @@
 import { Row, Typography } from "antd"
 import { useTranslation } from "react-i18next"
-import ProductsGridCard from "../ProductsGridCard"
+import ProductsGridCard from "../../components/ProductsGridCard"
 import { useEffect } from "react"
 import { useProducts } from "../../hooks/useProducts"
 
-const TshirtsPage: React.FC = () => {
+const ShoesPage: React.FC = () => {
   const { t } = useTranslation()
   const { searchedProducts } = useProducts()
 
-  const products = searchedProducts?.filter((a) => a?.label === 'tshirts')[0]?.products
+  const products = searchedProducts?.filter((a) => a?.label === 'shoes')[0]?.products
 
   useEffect(() => {
     window.scrollTo({top: 0, behavior: 'smooth'})
@@ -24,7 +24,7 @@ const TshirtsPage: React.FC = () => {
         </Row>
         <Row>
           <Typography.Text className="category-name">
-            {t('tshirts')}
+            {t('shoes')}
           </Typography.Text>
         </Row>
       </div>
@@ -46,4 +46,4 @@ const TshirtsPage: React.FC = () => {
   )
 }
 
-export default TshirtsPage
+export default ShoesPage

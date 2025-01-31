@@ -22,11 +22,23 @@ export function useProducts() {
     productContent => productContent.setSearchedProducts
   )
 
+  const favoriteProducts = useContextSelector(
+    ProductsContext,
+    productContent => productContent.favoriteProducts
+  )
+
+  const setFavoriteProducts = useContextSelector(
+    ProductsContext,
+    productContent => productContent.setFavoriteProducts
+  )
+
 
   return {
     teste,
     all_products,
     searchedProducts,
-    setSearchedProducts
+    setSearchedProducts,
+    favoriteProducts,
+    setFavoriteProducts
   }
 }
