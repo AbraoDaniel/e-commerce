@@ -23,7 +23,7 @@ const ProductsGridCard: React.FC<ICommerceCard> = ({product_name, product_collec
   }
   
   return (
-    <Col xs={12} lg={6} className="product-in-category-card" >
+    <Col xs={12} lg={8} xxl={6} className="product-in-category-card" >
       <Card className="product-view-card" onClick={handleClickToViewProduct}> 
         <Row style={{marginBottom: '-30px'}}>
           <img

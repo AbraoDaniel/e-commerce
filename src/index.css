@@ -67,23 +67,18 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.header-logo {
-  color: black;
-  font-size: 30px;
-  margin-top: 10px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
 .main-header {
-  height: 150px;
+  height: 130px;
   display: block;
   align-items: center;
   background-color: white;
-
+  position: fixed; /* Mantém fixo no topo */
   position: sticky;
   top: 0;
-  z-index: 1;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out; 
   
   .ant-input-group-addon {
     background-color: white;
@@ -158,6 +153,10 @@ button:focus-visible {
   }
 }
 
+.main-header.hidden {
+  transform: translateY(-100%); /* Move o header para cima ao esconder */
+}
+
 .products-view {
   background: white;
   display: flex;
@@ -173,7 +172,6 @@ button:focus-visible {
   display: grid;
   justify-content: center;
   padding: 0;
-  margin-right: -50px;
 }
 
 .product-view-card {
@@ -207,7 +205,7 @@ button:focus-visible {
   .discount-product-flag {
     background-color: black;
     text-align: center;
-    width: 60px;
+    width: 70px;
     border-radius: 6px;
     padding: 2px 8px;
     position: relative;
@@ -449,67 +447,8 @@ button:focus-visible {
 .header-logo {
   color: black;
   font-size: 30px;
-  margin-top: 10px;
   font-weight: 600;
   cursor: pointer;
-}
-
-.main-header {
-  height: 150px;
-  display: block;
-  align-items: center;
-  background-color: white;
-
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  
-  .ant-input-group-addon {
-    background-color: white;
-  }
-
-  .ant-menu-item {
-    color: black
-  }
-
-  .ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected, .ant-menu-item:hover {
-    color: black;
-    font-weight: 600;
-  }
-
-  
-  #search-header {
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    border-bottom-right-radius: 0;
-    padding-left: 5px;
-  }
-
-  #search-header::placeholder {
-    font-size: 18px;
-    
-  }
-
-  .ant-input-outlined:focus, .ant-input-outlined:hover {
-    box-shadow: none;
-    border-color: black;
-  }
-
-  .ant-input-group-addon {
-    border: none;
-    font-size: 25px;
-  }
-
-  .header-menu {
-    width: 100%;
-    justify-content: center;
-    border-bottom: none;
-  }
-
-  .ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected::after, .ant-menu-light.ant-menu-horizontal >.ant-menu-item:hover::after {
-    border-bottom-color: black;
-  }
 }
 
 .category-label {
@@ -520,7 +459,7 @@ button:focus-visible {
 
 .category-header {
   background: white;
-  padding: 12px 165px;
+  padding: 12px 30px;
   font-family: 'Inter', sans-serif;
   .category-product-label {
     font-size: 20px;
@@ -948,7 +887,8 @@ button:focus-visible {
 }
 
 .content-main-layout {
-  padding: 10px 48px;
+  padding: 0 48px;
+  margin-top: -5px;
   margin-bottom: 20px;
 }
 
@@ -983,13 +923,44 @@ button:focus-visible {
 
 
 /* -------------------- RESPONSIVIDADE ------------------ */
-@media screen and (max-width: 350px) {
-  .reduced-view {
-    width: 95% !important;
-  }
-}
+
 
 @media screen and (max-width: 600px) {
+  .credit-card-modal {
+    .ant-modal-content {
+      padding: 20px 4px !important;
+    }
+  }
+  .credit-card-form {
+    padding: 10px 0px !important;
+  }
+  .credit-card-wrap {
+    .credit-card {
+      width: 350px !important;
+      height: 250px !important;
+      .credit-card-first-row {
+        padding: 20px 30px;
+      }
+      .credit-card-second-row, .credit-card-third-row {
+        padding: 0px 10px !important;
+      }
+      .card-name {
+        font-size: 22px !important;
+        color: white;
+        margin-top: -50px;
+      }
+      .card-expiration {
+        font-size: 24px;
+        letter-spacing: 2px;
+        color: white;
+        margin-top: -50px;
+      }
+      .card-number {
+        font-size: 26px;
+        color: white;
+      }
+    }
+  }
   .payment-area {
     .product-rate-show-number {
       font-size: 12px !important;
@@ -1279,3 +1250,28 @@ button:focus-visible {
     }
   }
 }
+
+@media screen and (max-width: 350px) {
+  .reduced-view {
+    width: 95% !important;
+  }
+  .credit-card-wrap {
+    .credit-card {
+      width: 320px !important;
+      height: 250px !important;
+    }
+    .card-name {
+      font-size: 22px !important;
+    }
+    .card-expiration {
+      font-size: 16px !important;
+    }
+    .card-number {
+      font-size: 26px;
+    }
+    .credit-card-second-row {
+      align-items: center;
+    }
+  }
+}
+

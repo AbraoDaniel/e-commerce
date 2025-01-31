@@ -17,6 +17,7 @@ const ShowProductPage: React.FC = () => {
   const [productQty, setProductQty] = useState(1)
   const [productSize, setProductSize] = useState('')
   const { setTotalItemsInCard, totalItemsInCard } = useCartContent()
+  const [currentProductImage, setCurrentProductImage] = useState(`.${location?.state?.product_image}`)
 
   function handleClickAddToCart() {
     const productAlreadyInCart = localStorage.getItem(`@Danti:Cart_Products_${location?.state?.product_name?.toLowerCase()?.replace(" ", '-')}_${location?.state?.product_code}`)
@@ -43,12 +44,12 @@ const ShowProductPage: React.FC = () => {
         <div className="product-show">
           <Row style={{width: '100%'}} >
             <Col xs={24} lg={3} className="vertical-image-slider" >
-              <ImageSlider images={images} vertical verticalSwiping slidesToShow={4} dots={false}/>
+              <ImageSlider images={images} setCurrentProductImage={setCurrentProductImage} vertical verticalSwiping slidesToShow={4} dots={false}/>
             </Col>
             
             <Col lg={11}>
               <div className="product-image-preview">
-                <Image src={`.${location?.state?.product_image}`} width={700} height={700} />
+                <Image src={currentProductImage} width={700} height={700} />
                 {location?.state?.product_discount && (
                   <div className="discount-product-flag" >
                     <Typography.Text style={{color: 'white', fontSize: 18, fontFamily: 'Inter, sans serif'}}>{`-${location?.state?.product_discount}%`}</Typography.Text>
@@ -76,8 +77,8 @@ const ShowProductPage: React.FC = () => {
                     {`R$ ${!location?.state?.product_discount ? location?.state?.product_price : ((location?.state?.product_price - (location?.state?.product_price*location?.state?.product_discount/100)).toFixed(2))}`}
                   </Typography.Text>
                 </Row>
-                <Col xs={24} lg={3} className="horizontal-image-slider">
-                  <ImageSlider images={images} vertical={false} verticalSwiping={false} slidesToShow={1} dots/>
+                <Col xs={24} className="horizontal-image-slider">
+                  <ImageSlider images={images} setCurrentProductImage={setCurrentProductImage} vertical={false} verticalSwiping={false} slidesToShow={1} dots/>
                 </Col>
                 <div className="size-selection">
                   <Row justify="space-between">

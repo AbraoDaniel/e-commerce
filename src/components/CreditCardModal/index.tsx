@@ -64,44 +64,42 @@ const CreditCardModal: React.FC<ICreditCardModal> = ({setShowCreditCardModal}) =
     >
       <div className="credit-card-wrap">
         <Row justify="center">
-          <Col>
-          <div className="credit-card-container">
-            <div className={`credit-card ${isFlipped ? "flipped" : ""}`}>
-              <div className="credit-card-front">
-                <Row justify="space-between" className="credit-card-first-row">
-                  <div>
-                    <EllipsisOutlined style={{ fontSize: 25, color: "white" }} />
-                  </div>
-                  <div className="credit-card-flag">
-                    {renderCardFlag()}
-                  </div>
-                </Row>
-                <div style={{ backgroundColor: "transparent", height: 130 }} />
-                <Row justify="space-between" className="credit-card-second-row">
-                  <div className="card-name">{cardName?.length > 0 ? cardName : "João da Silva"}</div>
-                  <div className="card-expiration">{cardExpiration?.length > 0 ? cardExpiration : "01/30"}</div>
-                </Row>
-                <Row className="credit-card-third-row">
-                  <div className="card-number">
-                    {cardNumber?.length > 0 ? cardNumber?.match(/.{1,4}/g)?.join(" ") : "1234 5678 9123 4567"}
-                  </div>
-                </Row>
-              </div>
-              <div className="credit-card-back">
-                <div className="black-strip" style={{ width: "100%", height: "40px", background: "#000", marginBottom: "10px" }} />
-                <div className="cvv-box" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <span style={{ color: "#aaa", fontSize: "12px" }}>CVV</span>
-                  <div style={{ background: "black", color: "white", padding: "5px 15px", borderRadius: "5px", fontSize: "18px", fontWeight: "bold", letterSpacing: 6 }}>
-                    <span style={{marginRight: -5, display: 'flex'}}>
-                      {cardCvv?.length > 0 ? cardCvv : '***'}
-                    </span>
+          <Col xs={24} lg={24} style={{display: 'flex', justifyContent: 'center'}}>
+            <div className="credit-card-container">
+              <div className={`credit-card ${isFlipped ? "flipped" : ""}`}>
+                <div className="credit-card-front">
+                  <Row justify="space-between" className="credit-card-first-row">
+                    <div>
+                      <EllipsisOutlined style={{ fontSize: 25, color: "white" }} />
+                    </div>
+                    <div className="credit-card-flag">
+                      {renderCardFlag()}
+                    </div>
+                  </Row>
+                  <div style={{ backgroundColor: "transparent", height: 130 }} />
+                  <Row justify="space-between" className="credit-card-second-row">
+                    <div className="card-name">{cardName?.length > 0 ? cardName : "João da Silva"}</div>
+                    <div className="card-expiration">{cardExpiration?.length > 0 ? cardExpiration : "01/30"}</div>
+                  </Row>
+                  <Row className="credit-card-third-row">
+                    <div className="card-number">
+                      {cardNumber?.length > 0 ? cardNumber?.match(/.{1,4}/g)?.join(" ") : "1234 5678 9123 4567"}
+                    </div>
+                  </Row>
+                </div>
+                <div className="credit-card-back">
+                  <div className="black-strip" style={{ width: "100%", height: "40px", background: "#000", marginBottom: "10px" }} />
+                  <div className="cvv-box" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <span style={{ color: "#aaa", fontSize: "12px" }}>CVV</span>
+                    <div style={{ background: "black", color: "white", padding: "5px 15px", borderRadius: "5px", fontSize: "18px", fontWeight: "bold", letterSpacing: 6 }}>
+                      <span style={{marginRight: -5, display: 'flex'}}>
+                        {cardCvv?.length > 0 ? cardCvv : '***'}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-
             </div>
-          </div>
-
           </Col>
         </Row>
         <Row justify="start" className="credit-card-form" style={{width: '100%'}}>
@@ -113,7 +111,7 @@ const CreditCardModal: React.FC<ICreditCardModal> = ({setShowCreditCardModal}) =
             </Col>
             <Col xs={24}>
               <Form.Item className="form-credit-card-name" label="Nome presente no cartão" name="credit_card_name" rules={[{required: true, message: 'Por favor, informe o nome presente no cartão'}]}>
-                <Input maxLength={25} placeholder="João da Silva" className="credit-card-input" onChange={() => handleChangeFormValue()}/>
+                <Input maxLength={16} placeholder="João da Silva" className="credit-card-input" onChange={() => handleChangeFormValue()}/>
               </Form.Item>
             </Col>
             <Col xs={24}>
@@ -136,13 +134,13 @@ const CreditCardModal: React.FC<ICreditCardModal> = ({setShowCreditCardModal}) =
                 />
               </Form.Item>
             </Col>
-            <Row justify="space-between" style={{alignItems: 'center'}}>
-              <Col xs={11}>
+            <Row gutter={[16,16]} justify="space-between" style={{alignItems: 'center'}}>
+              <Col xs={12}>
                 <Form.Item  label="Data de expiração" name="credit_card_expiration_date" rules={[{required: true, message: 'Por favor, informe a data de expiração do cartão'}]}>
                   <DatePicker format={"MM/YY"} picker="month" className="credit-card-input" onChange={() => handleChangeFormValue()}/>
                 </Form.Item>
               </Col>
-              <Col xs={11}>
+              <Col xs={12}>
                 <Form.Item label="CVV" name="credit_card_cvv" rules={[{required: true, message: ''},
                   {
                     validator: async (_, value) => {

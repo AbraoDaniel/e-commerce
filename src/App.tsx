@@ -14,7 +14,7 @@ const App: React.FC = () => {
     <Router>
       <ProductsProvider>
         <CartContentProvider>
-          <Layout style={{width: '100%', minHeight:'100vh' }}>
+          <Layout style={{width: '100%', minHeight:'100vh', background: 'white' }}>
             <CommerceHeader />
             <AppRoutes />
             <Footer style={{ textAlign: 'center' }}>

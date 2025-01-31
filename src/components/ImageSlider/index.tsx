@@ -12,8 +12,9 @@ interface IImageSlider {
   verticalSwiping: boolean
   slidesToShow: number
   dots: boolean
+  setCurrentProductImage: (value: string) => void
 }
-const ImageSlider: React.FC<IImageSlider> = ({images, vertical, verticalSwiping, slidesToShow, dots}) => {
+const ImageSlider: React.FC<IImageSlider> = ({images, vertical, verticalSwiping, slidesToShow, dots, setCurrentProductImage}) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const sliderRef = useRef<Slider | null>(null);
   const settings = {
@@ -47,7 +48,11 @@ const ImageSlider: React.FC<IImageSlider> = ({images, vertical, verticalSwiping,
             <div
               key={index}
               className={`thumbnail ${selectedIndex === index ? "active" : ""}`}
-              onClick={() => setSelectedIndex(index)}
+              onClick={() => {
+                  setSelectedIndex(index)
+                  setCurrentProductImage(image?.path)
+                }
+              }
             >
               <Image preview={false} src={image.path} className="thumbnail-image" />
             </div>

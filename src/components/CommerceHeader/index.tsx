@@ -17,7 +17,10 @@ const CommerceHeader: React.FC = () => {
   const [visibleMenuDrawer, setVisibleMenuDrawer] = useState(false)
   const { totalItemsInCard } = useCartContent()
   const { all_products, setSearchedProducts } = useProducts()
-
+  const [lastScrollY, setLastScrollY] = useState(0)
+  const [hideHeader, setHideHeader] = useState(false)
+  const scrollThreshold = 150
+  
   const items = [
     {key: 'tshirts', label: 'CAMISETAS'},
     {key: 'coats', label: 'BLUSAS'},
@@ -32,6 +35,20 @@ const CommerceHeader: React.FC = () => {
     const path = location?.pathname?.split('/')[1]
     setCurrentTab(path)
   }, [location?.pathname])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > scrollThreshold && window.scrollY > lastScrollY) {
+        setHideHeader(true); 
+      } else if (window.scrollY < lastScrollY) {
+        setHideHeader(false);
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function onSearchProducts(e: any) {
@@ -49,7 +66,7 @@ const CommerceHeader: React.FC = () => {
   }
 
   return (
-    <Header className="main-header">
+    <Header className={`main-header ${hideHeader ? "hidden" : ""}`}>
         {visibleCartDrawer && <CartDrawer setVisibleCartDrawer={setVisibleCartDrawer} />}
         {visibleMenuDrawer && <MenuDrawer setVisibleMenuDrawer={setVisibleMenuDrawer} items={items}/>}
         <Row justify="center" style={{alignItems: 'center'}}>
