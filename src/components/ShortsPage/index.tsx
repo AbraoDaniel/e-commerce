@@ -2,16 +2,13 @@ import { Row, Typography } from "antd"
 import { useTranslation } from "react-i18next"
 import ProductsGridCard from "../ProductsGridCard"
 import { useEffect } from "react"
+import { useProducts } from "../../hooks/useProducts"
 
 const ShortsPage: React.FC = () => {
   const { t } = useTranslation()
-  const products = [
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: true, code: 12 },
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false, code: 13 },
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false, code: 14 },
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false, code: 15 },
-    {name: 'Bermuda preta', collection: 'Basic', price: 89.99, image: './src/assets/Shorts/bermuda-lisa-preta.png', favorite: false, code: 16 },
-  ]
+  const { searchedProducts } = useProducts()
+
+  const products = searchedProducts?.filter((a) => a?.label === 'shorts')[0]?.products
 
   useEffect(() => {
     window.scrollTo({top: 0, behavior: 'smooth'})

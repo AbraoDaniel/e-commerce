@@ -2,18 +2,13 @@ import { Row, Typography } from "antd"
 import { useTranslation } from "react-i18next"
 import ProductsGridCard from "../ProductsGridCard"
 import { useEffect } from "react"
+import { useProducts } from "../../hooks/useProducts"
 
 const PantsPage: React.FC = () => {
   const { t } = useTranslation()
-  const products = [
-    {name: 'Calça preta', collection: 'Basic', price: 89.99, image: './src/assets/Pants/calca-preta.png', favorite: true, discount: 10, code: 17 },
-    {name: 'Calça preta', collection: 'Basic', price: 89.99, image: './src/assets/Pants/calca-preta.png', favorite: true, code: 18},
-    {name: 'Calça preta', collection: 'Basic', price: 89.99, image: './src/assets/Pants/calca-preta.png', favorite: true, code: 19},
-    {name: 'Calça preta', collection: 'Basic', price: 89.99, image: './src/assets/Pants/calca-preta.png', favorite: true, code: 20},
-    {name: 'Calça preta', collection: 'Basic', price: 89.99, image: './src/assets/Pants/calca-preta.png', favorite: true, code: 21},
-    {name: 'Calça preta', collection: 'Basic', price: 89.99, image: './src/assets/Pants/calca-preta.png', favorite: true, code: 22},
-    {name: 'Calça preta', collection: 'Basic', price: 89.99, image: './src/assets/Pants/calca-preta.png', favorite: true, code: 23}
-  ]
+  const { searchedProducts } = useProducts()
+
+  const products = searchedProducts?.filter((a) => a?.label === 'pants')[0]?.products
 
   useEffect(() => {
     window.scrollTo({top: 0, behavior: 'smooth'})

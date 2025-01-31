@@ -2,17 +2,13 @@ import { Row, Typography } from "antd"
 import { useTranslation } from "react-i18next"
 import ProductsGridCard from "../ProductsGridCard"
 import { useEffect } from "react"
+import { useProducts } from "../../hooks/useProducts"
 
 const AccessoriesPage: React.FC = () => {
   const { t } = useTranslation()
-  const products = [
-    {name: 'Boné preto', collection: 'Basic', price: 89.99, image: './src/assets/Accessories/bone-preto.png', favorite: true, discount: 10, code: 30 },
-    {name: 'Boné preto', collection: 'Basic', price: 89.99, image: './src/assets/Accessories/bone-preto.png', favorite: true, code: 31 },
-    {name: 'Boné preto', collection: 'Basic', price: 89.99, image: './src/assets/Accessories/bone-preto.png', favorite: true, code: 32 },
-    {name: 'Boné preto', collection: 'Basic', price: 89.99, image: './src/assets/Accessories/bone-preto.png', favorite: true, code: 33 },
-    {name: 'Boné preto', collection: 'Basic', price: 89.99, image: './src/assets/Accessories/bone-preto.png', favorite: true, code: 34 },
-    {name: 'Boné preto', collection: 'Basic', price: 89.99, image: './src/assets/Accessories/bone-preto.png', favorite: true, code: 35 }
-  ]
+  const { searchedProducts } = useProducts()
+
+  const products = searchedProducts?.filter((a) => a?.label === 'accessories')[0]?.products
 
   useEffect(() => {
     window.scrollTo({top: 0, behavior: 'smooth'})
