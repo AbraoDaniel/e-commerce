@@ -29,8 +29,9 @@ const CommerceContent: React.FC<ICommerceContent> = ({category, products}) => {
   
   return (
     <Content className='content-main-layout' >
-      <Typography.Text className={'category-label'} onClick={handleClickCategory}>{t(category)}</Typography.Text>
-      <div className='content-wrap'>
+      <div id="category_label"><br/></div>
+      <Typography.Text className={'category-label'} onClick={handleClickCategory} id="category_label">{t(category)}</Typography.Text>
+      <div className='content-wrap' >
         {products?.map((product) => {
           return (
             <CommerceCard product_name={product?.name} product_collection={product?.collection} 
