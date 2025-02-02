@@ -67,12 +67,12 @@ export const defaultProductsList = [{
 {
   label: 'shoes',
   products: [
-    {name: 'Tênis preto', collection: 'Basic', price: 299.99, image: './src/assets/Shoes/tenis-preto.png', favorite: true, discount: 35, code: 24 },
-    {name: 'Tênis preto', collection: 'Basic', price: 199.99, image: './src/assets/Shoes/tenis-preto.png', favorite: false, code: 25 },
-    {name: 'Tênis preto', collection: 'Basic', price: 199.99, image: './src/assets/Shoes/tenis-preto.png', favorite: false, code: 26 },
-    {name: 'Tênis preto', collection: 'Basic', price: 199.99, image: './src/assets/Shoes/tenis-preto.png', favorite: false, code: 27 },
-    {name: 'Tênis preto', collection: 'Basic', price: 199.99, image: './src/assets/Shoes/tenis-preto.png', favorite: false, code: 28 },
-    {name: 'Tênis preto', collection: 'Basic', price: 199.99, image: './src/assets/Shoes/tenis-preto.png', favorite: false, code: 29 },
+    {name: 'Tênis preto', collection: 'Basic', price: 299.99, image: './src/assets/Shoes/TenisPretoPadrao/tenis-preto.png', favorite: true, discount: 35, code: 24 },
+    {name: 'Tênis preto', collection: 'Basic', price: 199.99, image: './src/assets/Shoes/TenisPretoPadrao/tenis-preto.png', favorite: false, code: 25 },
+    {name: 'Tênis preto', collection: 'Basic', price: 199.99, image: './src/assets/Shoes/TenisPretoPadrao/tenis-preto.png', favorite: false, code: 26 },
+    {name: 'Tênis preto', collection: 'Basic', price: 199.99, image: './src/assets/Shoes/TenisPretoPadrao/tenis-preto.png', favorite: false, code: 27 },
+    {name: 'Tênis preto', collection: 'Basic', price: 199.99, image: './src/assets/Shoes/TenisPretoPadrao/tenis-preto.png', favorite: false, code: 28 },
+    {name: 'Tênis preto', collection: 'Basic', price: 199.99, image: './src/assets/Shoes/TenisPretoPadrao/tenis-preto.png', favorite: false, code: 29 },
   ]
 },
 {

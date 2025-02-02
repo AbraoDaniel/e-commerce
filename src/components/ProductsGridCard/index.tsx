@@ -10,20 +10,21 @@ interface ICommerceCard {
   product_image: string
   product_favorite: boolean
   product_code: number
+  product_category: string
   product_discount?: number
 }
-const ProductsGridCard: React.FC<ICommerceCard> = ({product_name, product_collection, product_price, product_image, product_favorite, product_discount, product_code}) => {
+const ProductsGridCard: React.FC<ICommerceCard> = ({product_name, product_collection, product_price, product_image, product_favorite, product_discount, product_code, product_category}) => {
   const [heartHover, setHeartHover] = useState(product_favorite)
   const navigate = useNavigate()
   
   function handleClickToViewProduct() {
     navigate(`/products/${product_name?.toLowerCase()?.replace(" ", "-")}`, {state: {
-      product_name, product_collection, product_price, product_image, product_favorite, product_discount, product_code
+      product_name, product_collection, product_price, product_image, product_favorite, product_discount, product_code, product_category
     }})
   }
   
   return (
-    <Col xs={12} lg={8} xxl={6} className="product-in-category-card" >
+    <Col xs={12} sm={10} md={8} xxl={6} className="product-in-category-card" >
       <Card className="product-view-card" onClick={handleClickToViewProduct}> 
         <Row style={{marginBottom: '-30px'}}>
           <img

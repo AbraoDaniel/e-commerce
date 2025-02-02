@@ -10,16 +10,17 @@ interface ICommerceCard {
   product_image: string
   product_favorite: boolean
   product_code: number
+  product_category: string
   product_discount?: number
 }
 
-const CommerceCard:React.FC<ICommerceCard> = ({product_name, product_collection, product_price, product_image, product_favorite, product_discount, product_code }) => {
+const CommerceCard:React.FC<ICommerceCard> = ({product_name, product_collection, product_price, product_image, product_favorite, product_discount, product_code, product_category }) => {
   const [heartHover, setHeartHover] = useState(product_favorite)
   const navigate = useNavigate()
 
   function handleClickToViewProduct() {
     navigate(`/products/${product_name?.toLowerCase()?.replace(" ", "-")}`, {state: {
-      product_name, product_collection, product_price, product_image, product_favorite, product_discount, product_code
+      product_name, product_collection, product_price, product_image, product_favorite, product_discount, product_code, product_category
     }})
   }
 

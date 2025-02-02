@@ -35,7 +35,7 @@ const AccessoriesPage: React.FC = () => {
                 return (
                   <ProductsGridCard product_name={product?.name} product_collection={product?.collection} 
                   product_price={product?.price} product_image={product?.image} product_favorite={product?.favorite} product_discount={product?.discount}
-                  product_code={product?.code}
+                  product_code={product?.code} product_category="accessories"
                   />
                 )
               })}

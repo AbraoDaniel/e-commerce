@@ -97,7 +97,9 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
                   </Col>
                   <Col xs={15} lg={18}>
                     <Row justify="space-between">
-                      <Typography.Text className="cart-product-name">{product?.product_name}</Typography.Text>
+                      <Typography.Text className="cart-product-name">
+                        {product?.product_size ? `${product?.product_name} (${product?.product_size?.toUpperCase()})` : `${product?.product_name}`}
+                      </Typography.Text>
                       <CloseOutlined style={{marginRight: 10}} onClick={() => handleClickRemoveFromCart(product?.product_name, product?.product_code)}/>
                     </Row>
                     <Row>

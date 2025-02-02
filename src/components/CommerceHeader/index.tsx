@@ -1,5 +1,5 @@
 import { Badge, Button, Input, Layout, Menu, Row, Space } from 'antd';
-import { HeartFilled, HeartOutlined, MenuOutlined, SearchOutlined, ShoppingOutlined, UserOutlined } from '@ant-design/icons';
+import { CloseOutlined, HeartFilled, HeartOutlined, MenuOutlined, SearchOutlined, ShoppingOutlined, UserOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CartDrawer from '../CartDrawer';
@@ -20,6 +20,7 @@ const CommerceHeader: React.FC = () => {
   const [lastScrollY, setLastScrollY] = useState(0)
   const [hideHeader, setHideHeader] = useState(false)
   const scrollThreshold = 150
+  const [showSearch, setShowSearch] = useState(false)
   
   const items = [
     {key: 'tshirts', label: 'CAMISETAS'},
@@ -39,7 +40,8 @@ const CommerceHeader: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > scrollThreshold && window.scrollY > lastScrollY) {
-        setHideHeader(true); 
+        setHideHeader(true);
+        setShowSearch(false)
       } else if (window.scrollY < lastScrollY) {
         setHideHeader(false);
       }
@@ -66,7 +68,7 @@ const CommerceHeader: React.FC = () => {
   }
 
   return (
-    <Header className={`main-header ${hideHeader ? "hidden" : ""}`}>
+    <Header className={!showSearch ? `main-header ${hideHeader ? "hidden" : ""}` : `main-header show-search`}>
         {visibleCartDrawer && <CartDrawer setVisibleCartDrawer={setVisibleCartDrawer} />}
         {visibleMenuDrawer && <MenuDrawer setVisibleMenuDrawer={setVisibleMenuDrawer} items={items}/>}
         <Row justify="center" style={{alignItems: 'center'}}>
@@ -80,9 +82,7 @@ const CommerceHeader: React.FC = () => {
             <Button className='lateral-menu-button' onClick={() => setVisibleMenuDrawer(true)}>
               <MenuOutlined />
             </Button>
-            <Button className='search-button'>
-              <SearchOutlined />
-            </Button>
+            <SearchOutlined className='search-button' onClick={() => setShowSearch(!showSearch)}/>
             <Input addonBefore={<SearchOutlined id="search-icon" />} placeholder="Search" className='input-search-header' id="search-header" onChange={
               onSearchProducts
             }/>
@@ -106,6 +106,12 @@ const CommerceHeader: React.FC = () => {
               <ShoppingOutlined style={{fontSize: 25}} onClick={() => setVisibleCartDrawer(true)} />
             </Badge>
           </span>
+        </Row>
+        <Row justify="center">
+          <Input placeholder='Buscar' className='testando' addonAfter={<CloseOutlined className="close-search-icon" onClick={() => {
+            setShowSearch(false)
+            onSearchProducts({target: {value: ''}})
+            }}/>} style={{padding: '0px 20px', margin: '0px 10px'}} onChange={onSearchProducts}/>
         </Row>
         
       </Header>

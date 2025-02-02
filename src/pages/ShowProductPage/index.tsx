@@ -6,7 +6,19 @@ import { HeartFilled, HeartOutlined, MinusOutlined, PlusOutlined, ShoppingOutlin
 import { useCartContent } from "../../hooks/useCardContent";
 const ShowProductPage: React.FC = () => {
   const location = useLocation()
-  const images = [{path: `.${location?.state?.product_image}`}, 
+  const [productQty, setProductQty] = useState(1)
+  const [productSize, setProductSize] = useState('')
+  const { setTotalItemsInCard, totalItemsInCard } = useCartContent()
+  const [currentProductImage, setCurrentProductImage] = useState(`.${location?.state?.product_image}`)
+  const productCategory = location?.state?.product_category
+  const images = productCategory === 'shoes' ? [{path: `../src/assets/Shoes/TenisPretoPadrao/diagonal-frente.png`}, 
+    {path: `../src/assets/Shoes/TenisPretoPadrao/diagonal-direita.png`},
+    {path: `../src/assets/Shoes/TenisPretoPadrao/baixo.png`},
+    {path: `../src/assets/Shoes/TenisPretoPadrao/cima.png`},
+    {path: `../src/assets/Shoes/TenisPretoPadrao/frente.png`},
+    {path: `../src/assets/Shoes/TenisPretoPadrao/lado.png`},
+    {path: `../src/assets/Shoes/TenisPretoPadrao/atras.png`},
+  ] : [{path: `.${location?.state?.product_image}`}, 
     {path: `.${location?.state?.product_image}`},
     {path: `.${location?.state?.product_image}`},
     {path: `.${location?.state?.product_image}`},
@@ -14,21 +26,19 @@ const ShowProductPage: React.FC = () => {
     {path: `.${location?.state?.product_image}`},
     {path: `.${location?.state?.product_image}`},
   ]
-  const [productQty, setProductQty] = useState(1)
-  const [productSize, setProductSize] = useState('')
-  const { setTotalItemsInCard, totalItemsInCard } = useCartContent()
-  const [currentProductImage, setCurrentProductImage] = useState(`.${location?.state?.product_image}`)
-
   function handleClickAddToCart() {
     const productAlreadyInCart = localStorage.getItem(`@Danti:Cart_Products_${location?.state?.product_name?.toLowerCase()?.replace(" ", '-')}_${location?.state?.product_code}`)
-    console.log(productAlreadyInCart, 'productAlreadyInCart?')
     if (!productAlreadyInCart) {
-      localStorage.setItem(`@Danti:Cart_Products_${location?.state?.product_name?.toLowerCase()?.replace(" ", '-')}_${location?.state?.product_code}`, JSON.stringify({...location?.state, product_qty: productQty}))
-      setTotalItemsInCard(totalItemsInCard + 1)
+      if (productSize?.length > 0 || productCategory === 'accessories') {
+        localStorage.setItem(`@Danti:Cart_Products_${location?.state?.product_name?.toLowerCase()?.replace(" ", '-')}_${location?.state?.product_code}`, JSON.stringify({...location?.state, product_qty: productQty, product_size: productSize}))
+        setTotalItemsInCard(totalItemsInCard + 1)
+      } else {
+        alert('selecione um tamanho')
+      }
     }
   }
 
-  const sizes = [{size: 'pp', available: false}, 
+  const sizes = ['tshirts', 'coats', 'shorts']?.includes(productCategory) ? [{size: 'pp', available: false}, 
     {size: 'p', available: true},
     {size: 'm', available: false},
     {size: 'g', available: false},
@@ -36,6 +46,14 @@ const ShowProductPage: React.FC = () => {
     {size: '1g', available: true},
     {size: '2g', available: false},
     {size: '3g', available: true}
+  ] : [{size: '37', available: true}, 
+    {size: '38', available: false},
+    {size: '39', available: true},
+    {size: '40', available: false},
+    {size: '41', available: false},
+    {size: '42', available: true},
+    {size: '43', available: true},
+    {size: '44', available: false}
   ]
 
   return (
@@ -52,12 +70,12 @@ const ShowProductPage: React.FC = () => {
                 <Image src={currentProductImage} width={700} height={700} />
                 {location?.state?.product_discount && (
                   <div className="discount-product-flag" >
-                    <Typography.Text style={{color: 'white', fontSize: 18, fontFamily: 'Inter, sans serif'}}>{`-${location?.state?.product_discount}%`}</Typography.Text>
+                    <Typography.Text>{`- ${location?.state?.product_discount}%`}</Typography.Text>
                   </div>
                 )}
               </div>
             </Col>
-            <Col lg={10}>
+            <Col xl={10}>
               <div className="payment-area">
                 <Row>
                   <Typography.Text className="payment-product-name">
@@ -80,7 +98,8 @@ const ShowProductPage: React.FC = () => {
                 <Col xs={24} className="horizontal-image-slider">
                   <ImageSlider images={images} setCurrentProductImage={setCurrentProductImage} vertical={false} verticalSwiping={false} slidesToShow={1} dots/>
                 </Col>
-                <div className="size-selection">
+                {!['accessories']?.includes(productCategory) && (
+                  <div className="size-selection">
                   <Row justify="space-between">
                     <Typography.Text style={{fontSize: 16}}>
                       {'Selecione um tamanho'}
@@ -104,6 +123,7 @@ const ShowProductPage: React.FC = () => {
                     })}
                   </Row>
                 </div>
+                )}
                 <Row>
                   <Typography.Text className="payment-product-quantity">
                     {'Quantidade'}
@@ -115,13 +135,13 @@ const ShowProductPage: React.FC = () => {
                     <PlusOutlined className="quantity-operator" onClick={() => setProductQty((state) => state + 1)}/>
                 </Row>
                 <Row justify="space-between">
-                  <Col>
+                  <Col >
                     <Button className="product-add-to-cart-button" onClick={handleClickAddToCart}>
                       {'ADICIONAR AO CARRINHO'}
                       <ShoppingOutlined style={{marginBottom: 4, fontSize: 25}}  />
                     </Button>
                   </Col>
-                  <Col>
+                  <Col >
                     {location?.state?.product_favorite ? (
                       <HeartFilled style={{fontSize: 20, marginTop: 20, cursor: 'pointer', border: '1px solid black', borderRadius: 25, padding: '10px 10px'}} onClick={() => alert('favoritos')}/>
                     ) : (

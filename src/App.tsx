@@ -7,17 +7,19 @@ import './i18n'
 import { CartContentProvider } from './contexts/CartContext.tsx';
 import { ProductsProvider } from './contexts/ProductsContext.tsx/index.tsx';
 
-const { Footer } = Layout;
+const { Footer, Content } = Layout;
 
 const App: React.FC = () => {
   return (
     <Router>
       <ProductsProvider>
         <CartContentProvider>
-          <Layout style={{width: '100%', minHeight:'100vh', background: 'white' }}>
+          <Layout style={{display: 'flex', flexDirection: 'column', width: '100%', minHeight:'100vh', background: 'white' }}>
             <CommerceHeader />
-            <AppRoutes />
-            <Footer style={{ textAlign: 'center' }}>
+            <Content style={{flex: 1 }}>
+              <AppRoutes />
+            </Content>
+            <Footer style={{ textAlign: 'center', marginTop: 100}}>
               Danti ©{new Date().getFullYear()} Created by Daniel A. Abrão
             </Footer>
           </Layout>
