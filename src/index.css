@@ -361,6 +361,16 @@ button:focus-visible {
   }
 }
 
+.anticon.anticon-exclamation-circle, .anticon.anticon-check-circle  {
+  color: black !important;
+}
+
+.ant-message-custom-content.ant-message-warning, .ant-message-custom-content.ant-message-success {
+  font-size: 16px;
+}
+
+
+
 .cart-product-view {
   margin-bottom: 10px;
   border: 1px solid rgba(0, 0, 0, 0.082);
@@ -384,7 +394,7 @@ button:focus-visible {
   
   .cart-product-quantity-input {
     background-color: white;
-    margin-top: 35px;
+    margin-top: 10px;
     align-items: center;
     padding: 5px 10px;
     width: 90px;
@@ -453,22 +463,23 @@ button:focus-visible {
 }
 
 .category-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 30px;
+  font-family: 'Playfair', sans-serif;
+  font-size: 60px;
   cursor: pointer;
 }
 
 .category-header {
   background: white;
   padding: 12px 30px;
-  font-family: 'Inter', sans-serif;
   .category-product-label {
-    font-size: 20px;
+    font-size: 30px;
+    font-family: 'Playfair', sans-serif;
   }
 
   .category-name {
-    font-size: 40px;
-    font-family: 'Inter', sans-serif;
+    font-size: 60px;
+    margin-top: -15px;
+    font-family: 'Playfair', sans-serif;
   }
 }
 
@@ -883,6 +894,61 @@ button:focus-visible {
   margin-bottom: 20px;
 }
 
+.danti-mid-banner {
+  height: 400px;
+  background-image: url('src/assets/danti-mid-banner.png');
+  background-repeat: no-repeat;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .danti-mid-banner-content {
+    display: flex;
+    flex-direction: column;
+    .mid-title {
+      text-align: center;
+      font-family: 'Playfair', 'Inter', sans-serif;
+      font-size: 60px;
+      color: white;
+      font-weight: 600;
+    }
+    .mid-description {
+      font-family: 'Inter', sans-serif;
+      color: white;
+      font-size: 20px;
+      text-align: center;
+    }
+  }
+}
+
+.danti-mid-banner-2 {
+  height: 400px;
+  background-image: url('src/assets/danti-mid-banner-2.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .danti-mid-banner-content {
+    display: flex;
+    flex-direction: column;
+    .mid-title {
+      text-align: center;
+      font-family: 'Playfair', 'Inter', sans-serif;
+      font-size: 60px;
+      color: white;
+      font-weight: 600;
+    }
+    .mid-description {
+      font-family: 'Inter', sans-serif;
+      color: white;
+      font-size: 20px;
+      text-align: center;
+    }
+  }
+}
+
 .banner-information {
   margin-left: 100px;
   .info-title {
@@ -919,10 +985,6 @@ button:focus-visible {
   }
   /* display: flex; */
   /* align-items: center; */
-}
-
-.danti-banner-reduced {
-  display: none;
 }
 
 
@@ -981,6 +1043,9 @@ button:focus-visible {
   }
 }
 
+.danti-banner-reduced {
+  display: none;
+}
 
 
 /* -------------------- RESPONSIVIDADE ------------------ */
@@ -988,16 +1053,18 @@ button:focus-visible {
 
 @media screen and (max-width: 600px) {
   .danti-banner-reduced {
+    display: block;
     background-color: #121212;
     width: 100%;
     height: 650px;
     background-image: url('src/assets/danti-banner.png');
-    background-position: center left -400px;
-    background-size: 900px;
+    background-position: center left -350px;
+    background-size: 800px;
     background-repeat: no-repeat;
     /* margin-left: -220px; */
     .banner-information-reduced {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       .info-title {
         color: white;
@@ -1005,6 +1072,31 @@ button:focus-visible {
         margin-top: 50px;
         font-size: 35px;
         font-weight: 600;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .info-description-2 {
+        color: white;
+        font-size: 20px;
+        margin-top: 390px;
+        font-weight: 600;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+      .info-button {
+        width: 180px;
+        height: 40px;
+        background-color: black;
+        color: white;
+        border-color: black;
+        border-radius: 25px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .info-button:hover {
+        color: black !important;
+        border-color: black !important;
       }
     }
   }
@@ -1293,6 +1385,9 @@ button:focus-visible {
 }
 
 @media screen and (min-width: 601px) and (max-width: 1023px) {
+  .danti-banner {
+    background-position: center left -250px;
+  }
   .product-add-to-cart-button {
     width: 600px !important;
   }
@@ -1633,6 +1728,12 @@ button:focus-visible {
     .credit-card-second-row {
       align-items: center;
     }
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 550px ) {
+  .danti-banner-reduced {
+    background-position: center left -280px;
   }
 }
 

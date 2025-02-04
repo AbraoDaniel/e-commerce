@@ -1,5 +1,5 @@
 import { CloseOutlined, MinusOutlined, PlusOutlined, ShoppingOutlined } from "@ant-design/icons"
-import { Drawer, Row, Typography, Image, Col, Button } from "antd"
+import { Drawer, Row, Typography, Image, Col, Button, message } from "antd"
 import { useEffect, useState } from "react"
 import { useCartContent } from "../../hooks/useCardContent"
 import CreditCardModal from "../CreditCardModal"
@@ -18,6 +18,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
   const [totalPrice, setTotalPrice] = useState(0)
   const { totalItemsInCard, setTotalItemsInCard } = useCartContent()
   const [showCreditCardModal, setShowCreditCardModal] = useState(false)
+  const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
     cartList?.map((product) => {
@@ -32,6 +33,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
     localStorage.removeItem(`@Danti:Cart_Products_${formattedName}_${product_code}`)
     const productToRemove = cartList?.filter((p) => p?.product_code === product_code)[0]
     setCartList(cartList?.filter((p) => p?.product_code !== product_code))
+    success()
     setTotalItemsInCard(totalItemsInCard - 1)
     setTotalPrice(state => state - 
       (!productToRemove?.product_discount ? productToRemove?.product_price* productToRemove?.product_qty : ((productToRemove?.product_price - (productToRemove?.product_price*productToRemove?.product_discount/100)) * productToRemove?.product_qty)
@@ -41,7 +43,13 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
   function handleOpenCreditCardModal() {
     setShowCreditCardModal(true)
   }
- 
+
+  const success= () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Produto removido do carrinho!'
+    });
+  };
 
   return (
     <Drawer 
@@ -88,6 +96,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
       {showCreditCardModal && (<CreditCardModal setShowCreditCardModal={setShowCreditCardModal}/>)}
       {cartList?.length > 0 ? (
         <>
+          {contextHolder}
           {cartList?.map((product) => {
             return (
               <div className="cart-product-view" key={`${product?.product_name?.toLowerCase()?.replace(" ", "-")}_${product?.product_code}`}>
@@ -98,7 +107,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
                   <Col xs={15} lg={18}>
                     <Row justify="space-between">
                       <Typography.Text className="cart-product-name">
-                        {product?.product_size ? `${product?.product_name} (${product?.product_size?.toUpperCase()})` : `${product?.product_name}`}
+                        {product?.product_name}
                       </Typography.Text>
                       <CloseOutlined style={{marginRight: 10}} onClick={() => handleClickRemoveFromCart(product?.product_name, product?.product_code)}/>
                     </Row>
@@ -113,6 +122,11 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
                         {`R$ ${!product?.product_discount ? product?.product_price : ((product?.product_price - (product?.product_price*product?.product_discount/100)).toFixed(2))}`}
                         </>
                       }</Typography.Text>
+                    </Row>
+                    <Row>
+                      <Typography.Text>
+                        {product?.product_size ? `Tamanho ${product?.product_size?.toUpperCase()}` : `Tamanho único`}
+                      </Typography.Text>
                     </Row>
                     <Row justify="space-between" className="cart-product-quantity-input">
                       <MinusOutlined className="quantity-operator" onClick={() => alert('diminuiu')}/>

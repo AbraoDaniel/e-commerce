@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom"
 import ImageSlider from "../../components/ImageSlider";
-import { Button, Col, Image, Rate, Row, Typography } from 'antd'
-import { useState } from "react";
+import { Button, Col, Image, Rate, Row, Typography, message } from 'antd'
+import { useEffect, useState } from "react";
 import { HeartFilled, HeartOutlined, MinusOutlined, PlusOutlined, ShoppingOutlined } from "@ant-design/icons";
 import { useCartContent } from "../../hooks/useCardContent";
 const ShowProductPage: React.FC = () => {
@@ -26,18 +26,6 @@ const ShowProductPage: React.FC = () => {
     {path: `.${location?.state?.product_image}`},
     {path: `.${location?.state?.product_image}`},
   ]
-  function handleClickAddToCart() {
-    const productAlreadyInCart = localStorage.getItem(`@Danti:Cart_Products_${location?.state?.product_name?.toLowerCase()?.replace(" ", '-')}_${location?.state?.product_code}`)
-    if (!productAlreadyInCart) {
-      if (productSize?.length > 0 || productCategory === 'accessories') {
-        localStorage.setItem(`@Danti:Cart_Products_${location?.state?.product_name?.toLowerCase()?.replace(" ", '-')}_${location?.state?.product_code}`, JSON.stringify({...location?.state, product_qty: productQty, product_size: productSize}))
-        setTotalItemsInCard(totalItemsInCard + 1)
-      } else {
-        alert('selecione um tamanho')
-      }
-    }
-  }
-
   const sizes = ['tshirts', 'coats', 'shorts']?.includes(productCategory) ? [{size: 'pp', available: false}, 
     {size: 'p', available: true},
     {size: 'm', available: false},
@@ -55,7 +43,40 @@ const ShowProductPage: React.FC = () => {
     {size: '43', available: true},
     {size: '44', available: false}
   ]
+  const [messageApi, contextHolder] = message.useMessage();
 
+  const warning = () => {
+    messageApi.open({
+      type: 'warning',
+      content: 'Selecione um tamanho para prosseguir'
+    });
+  };
+
+  const success= () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Produto adicionado ao carrinho!'
+    });
+  };
+  
+  useEffect(() => {
+    window.scrollTo({top: 0, behavior: 'smooth'})
+  }, [])
+
+  function handleClickAddToCart() {
+    const productAlreadyInCart = localStorage.getItem(`@Danti:Cart_Products_${location?.state?.product_name?.toLowerCase()?.replace(" ", '-')}_${location?.state?.product_code}`)
+    if (!productAlreadyInCart) {
+      if (productSize?.length > 0 || productCategory === 'accessories') {
+        localStorage.setItem(`@Danti:Cart_Products_${location?.state?.product_name?.toLowerCase()?.replace(" ", '-')}_${location?.state?.product_code}`, JSON.stringify({...location?.state, product_qty: productQty, product_size: productSize}))
+        setTotalItemsInCard(totalItemsInCard + 1)
+        success()
+      } else {
+        warning()
+      }
+    }
+  }
+
+  
   return (
     <div className="products-view">
       <div className="reduced-view" style={{color: 'black'}}>
@@ -136,6 +157,7 @@ const ShowProductPage: React.FC = () => {
                 </Row>
                 <Row justify="space-between">
                   <Col >
+                    {contextHolder}
                     <Button className="product-add-to-cart-button" onClick={handleClickAddToCart}>
                       {'ADICIONAR AO CARRINHO'}
                       <ShoppingOutlined style={{marginBottom: 4, fontSize: 25}}  />
