@@ -16,9 +16,8 @@ const CommerceHeader: React.FC = () => {
   const [visibleCartDrawer, setVisibleCartDrawer] = useState(false)
   const [visibleMenuDrawer, setVisibleMenuDrawer] = useState(false)
   const { totalItemsInCard } = useCartContent()
-  const { all_products, setSearchedProducts } = useProducts()
+  const { all_products, setSearchedProducts, hideHeader, setHideHeader } = useProducts()
   const [lastScrollY, setLastScrollY] = useState(0)
-  const [hideHeader, setHideHeader] = useState(false)
   const scrollThreshold = 150
   const [showSearch, setShowSearch] = useState(false)
   
@@ -48,8 +47,10 @@ const CommerceHeader: React.FC = () => {
       setLastScrollY(window.scrollY);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    if (!location?.pathname?.includes('/checkout')) {
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
   }, [lastScrollY]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

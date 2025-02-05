@@ -24,6 +24,8 @@ interface ProductsContextProps {
   setSearchedProducts: (value: IAllProducts[]) => void
   favoriteProducts: IProduct[]
   setFavoriteProducts: (value: IProduct[]) => void
+  hideHeader: boolean
+  setHideHeader: (value: boolean) => void
 }
 
 export const ProductsContext = createContext<ProductsContextProps>(
@@ -39,6 +41,8 @@ export const ProductsProvider: React.FC<{children: React.ReactNode}> = ({ childr
       category?.products?.filter(product => product?.favorite) || []
     )
   )
+  const [hideHeader, setHideHeader] = useState(false)
+
 
   return (
     <ProductsContext.Provider
@@ -48,7 +52,9 @@ export const ProductsProvider: React.FC<{children: React.ReactNode}> = ({ childr
         searchedProducts,
         setSearchedProducts,
         favoriteProducts,
-        setFavoriteProducts
+        setFavoriteProducts,
+        hideHeader,
+        setHideHeader
       }}
     >
       {children}

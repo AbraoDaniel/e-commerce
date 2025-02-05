@@ -32,6 +32,15 @@ export function useProducts() {
     productContent => productContent.setFavoriteProducts
   )
 
+  const hideHeader = useContextSelector(
+    ProductsContext,
+    productContent => productContent.hideHeader
+  )
+
+  const setHideHeader = useContextSelector(
+    ProductsContext,
+    productContent => productContent.setHideHeader
+  )
 
   return {
     teste,
@@ -39,6 +48,8 @@ export function useProducts() {
     searchedProducts,
     setSearchedProducts,
     favoriteProducts,
-    setFavoriteProducts
+    setFavoriteProducts,
+    hideHeader,
+    setHideHeader
   }
 }

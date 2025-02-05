@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import AccessoriesPage from "../../pages/AccessoriesPage";
+import CheckoutPage from "../../pages/CheckoutPage";
 import CoatsPage from "../../pages/CoatsPage ";
 import CommerceHome from "../../pages/CommerceHome";
 import PantsPage from "../../pages/PantsPage";
@@ -18,7 +19,8 @@ export const routePathsAndElements: any = [
   {path: '/shoes', element: <ShoesPage />},
   {path: '/accessories', element: <AccessoriesPage />},
   {path: '/products/:product_name', element: <ShowProductPage />},
-  {path: '/wishlist', element: <WishListPage />}
+  {path: '/wishlist', element: <WishListPage />},
+  {path: '/checkout/:transition_status', element: <CheckoutPage />}
 ]
 
 export const defaultProductsList = [{

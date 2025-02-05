@@ -3,12 +3,14 @@ import { Drawer, Row, Typography, Image, Col, Button, message } from "antd"
 import { useEffect, useState } from "react"
 import { useCartContent } from "../../hooks/useCardContent"
 import CreditCardModal from "../CreditCardModal"
+import { useNavigate } from "react-router-dom"
 
 interface ICartDrawer {
   setVisibleCartDrawer: (value: boolean) => void
 }
 const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
   const entries = Object.entries(localStorage)
+  const navigate = useNavigate()
   const [cartList, setCartList] = useState(entries?.map((a) => {
     if (a[0]?.includes("@Danti:Cart_Products")) {
       const parsed_product = JSON.parse(a[1])     
@@ -40,8 +42,9 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
     ))
   }
 
-  function handleOpenCreditCardModal() {
-    setShowCreditCardModal(true)
+  function handleGoToCheckoutPage() {
+    setVisibleCartDrawer(false)
+    navigate('/checkout/address', {state: {products_list: cartList}})
   }
 
   const success= () => {
@@ -84,7 +87,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
                 </Typography.Text>
               </Row>
               <Row justify="center">
-                <Button className="cart-checkout-button" onClick={handleOpenCreditCardModal}>
+                <Button className="cart-checkout-button" onClick={handleGoToCheckoutPage}>
                   {'FINALIZAR COMPRA'}
                 </Button>
               </Row>

@@ -963,7 +963,7 @@ button:focus-visible {
     color: white;
     font-size: 20px;
     margin-bottom: 20px;
-    max-width: 1600px;
+    max-width: 1450px;
   }
   .info-description-2 {
     color: white;
@@ -983,23 +983,98 @@ button:focus-visible {
     color: black !important;
     border-color: black !important;
   }
-  /* display: flex; */
-  /* align-items: center; */
+}
+
+.checkout-container {
+  margin: auto;
+  margin-top: -100px;
+  height: 100vh;
+  width: 65%;
+
+  .checkout-informations {
+    padding: 20px 42px;
+    .danti-logo-checkout {
+      font-size: 80px;
+      font-weight: 600;
+      line-height: 0.5;
+    }
+    .checkout-form {
+      margin-top: 10px;
+      height: 500px;
+      .checkout-fields {
+        .checkout-email-input, .checkout-country, .checkout-first-name, .checkout-last-name, .checkout-address,
+        .checkout-complement, .checkout-city, .checkout-state, .checkout-cep, .checkout-phone
+        {
+          height: 50px;
+          border: 2px solid black;
+          border-radius: 8px;
+        }
+      }
+      .checkout-checkbox {
+        .ant-checkbox-checked {
+          .ant-checkbox-inner {
+            background-color: black;
+            border-color: black;
+          }
+        }
+      }
+      .ant-form-item-label >label {
+        color: #666666;
+        font-size: 12px;
+      }
+      .checkout-button {
+        margin-top: 20px;
+        padding: 20px 20px;
+        width: 200px;
+        font-size: 16px;
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+        background-color: black;
+        color: white !important;
+      }
+    
+      .checkout-button:hover {
+        color: black !important;
+        border-color: black !important;
+        background-color: white;
+      }
+    }
+  }
+  .checkout-cart-summary {
+    background-color: #4cb7ff;
+    height: 100vh;
+    padding: 20px 42px;
+    .cart-products {
+      top: 0;
+      position: sticky;
+      background-color: rebeccapurple;
+      height: 600px;
+    }
+  }
+}
+
+.checkout-delivery-container {
+  width: 100%;
+  .checkout-delivery-card {
+    border-color: #666666;
+  }
+  .checkout-radio {
+    width: 100%;
+    margin-top: 10px;
+    padding: 20px 16px;
+    border: 1px solid #666666;
+    border-radius: 8px;
+  }
+  .ant-radio-checked {
+    .ant-radio-inner {
+      background-color: black;
+      border-color: black;
+    }
+  }
 }
 
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
 
 .content-main-layout {
   padding: 0 48px;
