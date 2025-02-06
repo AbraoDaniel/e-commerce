@@ -1,42 +1,61 @@
-import { Col, Modal, Row, Form, Input, DatePicker } from "antd"
-import { useState } from "react"
+import { Col, Modal, Row } from "antd"
+import { useEffect, useState } from "react"
 import { EloCardFlag, MastercardCardFlag, VisaCardFlag } from "../../assets/CardsFlags"
 import { EllipsisOutlined } from "@ant-design/icons"
 import dayjs from 'dayjs'
-import { validateCpf } from "../../util/validateCpf"
 import { cpfMask } from "../../util/cpfMask"
 import { getCardBrand } from "../../util/getCardBrand"
+import CreditCardForm from "./CreditCardForm"
+import { useProducts } from "../../hooks/useProducts"
 
 
 interface ICreditCardModal {
   setShowCreditCardModal: (value: boolean) => void
 }
 const CreditCardModal: React.FC<ICreditCardModal> = ({setShowCreditCardModal}) => {
-  const [creditCardForm] = Form.useForm()
+  const { paymentCheckoutForm, validatedValues, setValidatedValues } = useProducts()
   const [cardNumber, setCardNumber] = useState('')
   const [cardName, setCardName] = useState('')
   const [cardExpiration, setCardExpiration] = useState('')
   const [cardCvv, setCardCvv] = useState('')
   const [cpfInputValue, setCpfInputValue] = useState('')
   const [isFlipped, setIsFlipped] = useState(false)
+  const editMode = validatedValues?.credit_card_number?.length > 0 || false
+
+  useEffect(() => {
+    if (validatedValues) {
+      setCardNumber(validatedValues?.credit_card_number)
+      setCardName(validatedValues?.credit_card_name)
+      setCardExpiration(dayjs(validatedValues?.credit_card_expiration_date).format('MM/YY'))
+      setCardCvv(validatedValues?.credit_card_cvv?.slice(0, 3))
+    }
+  }, [])
   
   function handleChangeFormValue() {
-    const formFields = creditCardForm?.getFieldsValue()
+    const formFields = paymentCheckoutForm?.getFieldsValue()
     setCardNumber(formFields?.credit_card_number)
     setCardName(formFields?.credit_card_name)
     setCardExpiration(dayjs(formFields?.credit_card_expiration_date).format('MM/YY'))
     setCardCvv(formFields?.credit_card_cvv?.slice(0, 3))
-    creditCardForm.setFieldsValue({ credit_card_cvv: formFields?.credit_card_cvv?.slice(0, 3) })
+    paymentCheckoutForm.setFieldsValue({ credit_card_cvv: formFields?.credit_card_cvv?.slice(0, 3) })
   }
 
-  function handleRegisterNewCreditCard() {
-    alert('cadastrou!!')
+  async function handleRegisterNewCreditCard() {
+    try {
+      const validated = await paymentCheckoutForm.validateFields()
+      if (validated) {
+        setValidatedValues(validated)
+        setShowCreditCardModal(false)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   function handleChangeCpfValue(e: React.ChangeEvent<HTMLInputElement>) {
     const maskedCpf = cpfMask(e.target.value)
     setCpfInputValue(maskedCpf)
-    creditCardForm.setFieldsValue({ credit_card_cpf: maskedCpf })
+    paymentCheckoutForm.setFieldsValue({ credit_card_cpf: maskedCpf })
   }
 
   function renderCardFlag() {
@@ -52,14 +71,21 @@ const CreditCardModal: React.FC<ICreditCardModal> = ({setShowCreditCardModal}) =
         return <VisaCardFlag size={80} />
     }
   }
+
+  function handleCancelCreditCardModal() {
+    setShowCreditCardModal(false)
+    if (!editMode) {
+      paymentCheckoutForm.resetFields()
+    }
+  }
   
   return (
     <Modal 
       open 
-      onCancel={() => setShowCreditCardModal(false)} 
+      onCancel={handleCancelCreditCardModal} 
       className="credit-card-modal"
       cancelText="Cancelar"
-      okText="Cadastrar cartão"
+      okText={editMode ? "Atualizar cadastro" : "Cadastrar cartão"}
       onOk={handleRegisterNewCreditCard}
     >
       <div className="credit-card-wrap">
@@ -102,60 +128,7 @@ const CreditCardModal: React.FC<ICreditCardModal> = ({setShowCreditCardModal}) =
             </div>
           </Col>
         </Row>
-        <Row justify="start" className="credit-card-form" style={{width: '100%'}}>
-          <Form layout="vertical" form={creditCardForm} requiredMark={false} style={{width: '100%'}}>
-            <Col xs={24}>
-              <Form.Item  label="Número do cartão" name="credit_card_number" rules={[{required: true, message: 'Por favor, informe o número do cartão'}]}>
-                <Input maxLength={16} placeholder="1234 5678 9123 4567" className="credit-card-input" onChange={() => handleChangeFormValue()}/>
-              </Form.Item>
-            </Col>
-            <Col xs={24}>
-              <Form.Item className="form-credit-card-name" label="Nome presente no cartão" name="credit_card_name" rules={[{required: true, message: 'Por favor, informe o nome presente no cartão'}]}>
-                <Input maxLength={16} placeholder="João da Silva" className="credit-card-input" onChange={() => handleChangeFormValue()}/>
-              </Form.Item>
-            </Col>
-            <Col xs={24}>
-              <Form.Item className="form-credit-card-cpf" label="Cpf do titular do cartão" name="credit_card_cpf" rules={[
-                {required: true, message:''},
-                {validator: (_, value) => {
-                  if (value?.length < 11) {
-                    return Promise.reject('Insira um cpf válido')
-                  } else {
-                    const isAValidCpf = validateCpf(value)
-                    if (!isAValidCpf) {
-                      return Promise.reject('Cpf inválido')
-                    }
-                  }
-                } }
-                
-                ]}>
-                <Input maxLength={14} placeholder="122.123.124-67" className="credit-card-input" onChange={handleChangeCpfValue}
-                  value={cpfInputValue}
-                />
-              </Form.Item>
-            </Col>
-            <Row gutter={[16,16]} justify="space-between" style={{alignItems: 'center'}}>
-              <Col xs={12}>
-                <Form.Item  label="Data de expiração" name="credit_card_expiration_date" rules={[{required: true, message: 'Por favor, informe a data de expiração do cartão'}]}>
-                  <DatePicker format={"MM/YY"} picker="month" className="credit-card-input" onChange={() => handleChangeFormValue()}/>
-                </Form.Item>
-              </Col>
-              <Col xs={12}>
-                <Form.Item label="CVV" name="credit_card_cvv" rules={[{required: true, message: ''},
-                  {
-                    validator: async (_, value) => {
-                      if (!value || value?.length < 3 || value?.length > 3) {
-                        return Promise.reject("Informe um CVV válido")
-                      }
-                    }
-                  }
-                ]}>
-                  <Input type="number" min={1} onClick={() => setIsFlipped(true)} onBlur={() => setIsFlipped(false)} maxLength={3} placeholder="111" className="credit-card-input" onChange={() => handleChangeFormValue()}/>
-                </Form.Item>
-              </Col>
-            </Row>
-          </Form>
-        </Row>
+        <CreditCardForm form={paymentCheckoutForm} setIsFlipped={setIsFlipped} handleChangeFormValue={handleChangeFormValue} cpfInputValue={cpfInputValue} handleChangeCpfValue={handleChangeCpfValue}/>
       </div>
     </Modal>
   )

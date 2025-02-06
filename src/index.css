@@ -815,14 +815,119 @@ button:focus-visible {
     .ant-form-item-required {
       font-size: 18px;
     }
-    .credit-card-input {
-      height: 40px;
-      margin-top: -50px;
-      border-color: black;
-      width: 100%;
+  }
+}
+
+.credit-card-input {
+  height: 40px;
+  margin-top: -50px;
+  border-color: black;
+  width: 100%;
+}
+
+.pix-qrcode-card {
+  margin-top: 40px;
+  .ant-card-body {
+    display: flex;
+  }
+  .ant-progress-text {
+    color: black !important;
+  }
+  .pix-description {
+    margin-left: 20px;
+    font-size: 15px;
+    width: 50%;
+    font-family: 'Inter', sans-serif;
+    .ant-progress {
+      text-align: center;
     }
   }
 }
+
+.finished-order-overlay {
+  position: fixed; /* Mantém o componente fixo na tela */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Garante que esteja acima de tudo */
+}
+
+.finished-order-message {
+  position: relative;
+  text-align: left;
+  border-radius: 0.5rem;
+  max-width: 320px;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  .dismiss {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #fff;
+    color: black;
+    font-size: 30px;
+    font-weight: 300;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    transition: .3s ease;
+  }
+  .dismiss:hover {
+    border: none;
+  }
+  .header {
+    padding: 1.25rem 1rem 1rem 1rem;
+  }
+  
+  .image {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: black;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 9999px;
+    transition: .6s ease;
+  }
+  
+  .image svg {
+    height: 40px;
+  }
+  
+  .content {
+    margin-top: 0.75rem;
+    text-align: center;
+  }
+  
+  .title {
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5rem;
+  }
+  
+  .message {
+    margin-top: 0.5rem;
+    color: #595b5f;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
 
 .product-card-image {
   height: 367px;
@@ -1032,12 +1137,18 @@ button:focus-visible {
         align-items: center;
         background-color: black;
         color: white !important;
+        .ant-spin-dot.ant-spin-dot-spin {
+          color: white !important;
+        }
       }
     
       .checkout-button:hover {
         color: black !important;
         border-color: black !important;
         background-color: white;
+        .ant-spin-dot.ant-spin-dot-spin {
+          color: black !important;
+        }
       }
     }
   }
@@ -1057,7 +1168,25 @@ button:focus-visible {
 .checkout-delivery-container {
   width: 100%;
   .checkout-delivery-card {
-    border-color: #666666;
+    border-color: #0000003f;
+    .ant-card-head {
+      border-bottom: none;
+    }
+  }
+  .checkout-payment-methods {
+    margin-top: 10px;
+    border: 1px solid #0000003f;
+    border-radius: 8px;
+    padding: 14px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  .checkout-payment-methods.selected {
+    border: 1px solid black;
+    box-shadow: 0 0 4px black;
+  }
+  .checkout-payment-methods:hover {
+    border-color: black
   }
   .checkout-radio {
     width: 100%;

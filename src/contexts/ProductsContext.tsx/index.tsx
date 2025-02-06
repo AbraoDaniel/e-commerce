@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react'
 import { createContext } from 'use-context-selector'
 import { defaultProductsList } from '../../util/productFields'
+import { Form, FormInstance } from 'antd'
 
 interface IProduct {
   name: string,
@@ -26,6 +28,11 @@ interface ProductsContextProps {
   setFavoriteProducts: (value: IProduct[]) => void
   hideHeader: boolean
   setHideHeader: (value: boolean) => void
+  selectedMethod: string
+  setSelectedMethod: (value: string) => void
+  paymentCheckoutForm: FormInstance
+  validatedValues: any
+  setValidatedValues: (value: any) => void
 }
 
 export const ProductsContext = createContext<ProductsContextProps>(
@@ -35,6 +42,7 @@ export const ProductsContext = createContext<ProductsContextProps>(
 export const ProductsProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
   const teste = 'aaaa'
   const all_products = defaultProductsList
+  const [paymentCheckoutForm] = Form.useForm()
   const [searchedProducts, setSearchedProducts] = useState(all_products)
   const [favoriteProducts, setFavoriteProducts] = useState(
     searchedProducts.flatMap(category => 
@@ -42,6 +50,8 @@ export const ProductsProvider: React.FC<{children: React.ReactNode}> = ({ childr
     )
   )
   const [hideHeader, setHideHeader] = useState(false)
+  const [selectedMethod, setSelectedMethod] = useState('pix')
+  const [validatedValues, setValidatedValues] = useState()
 
 
   return (
@@ -54,7 +64,12 @@ export const ProductsProvider: React.FC<{children: React.ReactNode}> = ({ childr
         favoriteProducts,
         setFavoriteProducts,
         hideHeader,
-        setHideHeader
+        setHideHeader,
+        selectedMethod,
+        setSelectedMethod,
+        paymentCheckoutForm,
+        validatedValues,
+        setValidatedValues
       }}
     >
       {children}

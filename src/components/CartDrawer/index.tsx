@@ -2,7 +2,6 @@ import { CloseOutlined, MinusOutlined, PlusOutlined, ShoppingOutlined } from "@a
 import { Drawer, Row, Typography, Image, Col, Button, message } from "antd"
 import { useEffect, useState } from "react"
 import { useCartContent } from "../../hooks/useCardContent"
-import CreditCardModal from "../CreditCardModal"
 import { useNavigate } from "react-router-dom"
 
 interface ICartDrawer {
@@ -19,7 +18,6 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
   })?.filter(b => b))
   const [totalPrice, setTotalPrice] = useState(0)
   const { totalItemsInCard, setTotalItemsInCard } = useCartContent()
-  const [showCreditCardModal, setShowCreditCardModal] = useState(false)
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
@@ -96,7 +94,6 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
         </>
       }
     >
-      {showCreditCardModal && (<CreditCardModal setShowCreditCardModal={setShowCreditCardModal}/>)}
       {cartList?.length > 0 ? (
         <>
           {contextHolder}

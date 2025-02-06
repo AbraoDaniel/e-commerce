@@ -4,6 +4,8 @@ import { useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import CheckoutAddress from "./CheckoutAddress"
 import CheckoutDelivery from "./CheckoutDelivery"
+import CheckoutPayment from "./CheckoutPayment"
+import CheckoutConfirm from "./CheckoutConfirm"
 // import { useLocation } from "react-router-dom"
 
 
@@ -29,6 +31,10 @@ const CheckoutPage: React.FC = () => {
       title: 'Pagamento',
       href: '/checkout/payment'
     },
+    {
+      title: 'Confirmação',
+      href: '/checkout/confirmation'
+    }
   ]
 
   useEffect(() => {
@@ -52,13 +58,16 @@ const CheckoutPage: React.FC = () => {
   }
 
   function renderCurrentCheckoutStatus() {
+
     switch(transition_status) {
       case 'address':
         return <CheckoutAddress />
       case 'delivery':
         return <CheckoutDelivery />
       case 'payment':
-        return <h1>{'payment'}</h1>
+        return <CheckoutPayment />
+      case 'confirmation':
+        return <CheckoutConfirm />
       default:
         return <h1>{'Ocorreu um problema'}</h1>
     }

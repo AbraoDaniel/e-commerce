@@ -1,4 +1,4 @@
-import { Button, Card, Col, Radio, Row, Typography } from "antd"
+import { Button, Card, Col, Divider, Radio, Row, Typography } from "antd"
 import { useNavigate } from "react-router-dom"
 
 const CheckoutDelivery: React.FC = () => {
@@ -20,6 +20,7 @@ const CheckoutDelivery: React.FC = () => {
               <div>{'email'}</div>
             </div>
           } extra={<span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>}>
+            <Divider style={{marginTop: -20}} />
             <Row justify="space-between" style={{display: 'flex', alignItems: 'center'}}>
               <div style={{display: 'inline-flex'}}>
                 <div style={{marginRight: 20}}>{'Endereço de entrega'}</div>
@@ -29,9 +30,9 @@ const CheckoutDelivery: React.FC = () => {
             </Row>
           </Card>
         </Col>
-        <Col xs={24} style={{marginTop: 20}} onClick={() => alert('entrega blueRabbit')}>
+        <Col xs={24} style={{marginTop: 20}}>
           <Typography.Text>{'Entrega feita por blueRabbit LTDA'}</Typography.Text>
-          <Radio className="checkout-radio" checked>
+          <Radio className="checkout-radio" checked onClick={() => alert('entrega blueRabbit')}>
             <Typography.Text style={{marginRight: 380}}>
               Padrão
             </Typography.Text>
@@ -40,9 +41,9 @@ const CheckoutDelivery: React.FC = () => {
             </Typography.Text>
           </Radio>
         </Col>
-        <Col xs={24} style={{marginTop: 20}} onClick={() => alert('entrega redFox')}>
+        <Col xs={24} style={{marginTop: 20}}>
           <Typography.Text>{'Entrega feita por redFox LTDA'}</Typography.Text>
-          <Radio className="checkout-radio" checked>
+          <Radio className="checkout-radio" checked onClick={() => alert('entrega redFox')}>
             <Typography.Text style={{marginRight: 400}}>
               Gratuita
             </Typography.Text>

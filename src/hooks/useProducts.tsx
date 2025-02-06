@@ -42,6 +42,32 @@ export function useProducts() {
     productContent => productContent.setHideHeader
   )
 
+  const selectedMethod = useContextSelector(
+    ProductsContext,
+    productContent => productContent.selectedMethod
+  )
+
+  const setSelectedMethod = useContextSelector(
+    ProductsContext,
+    productContent => productContent.setSelectedMethod
+  )
+
+  const paymentCheckoutForm = useContextSelector(
+    ProductsContext,
+    productContent => productContent.paymentCheckoutForm
+  )
+
+  const validatedValues = useContextSelector(
+    ProductsContext,
+    productContent => productContent.validatedValues
+  )
+
+  const setValidatedValues = useContextSelector(
+    ProductsContext,
+    productContent => productContent.setValidatedValues
+  )
+
+
   return {
     teste,
     all_products,
@@ -50,6 +76,11 @@ export function useProducts() {
     favoriteProducts,
     setFavoriteProducts,
     hideHeader,
-    setHideHeader
+    setHideHeader,
+    selectedMethod,
+    setSelectedMethod,
+    paymentCheckoutForm,
+    validatedValues,
+    setValidatedValues
   }
 }
