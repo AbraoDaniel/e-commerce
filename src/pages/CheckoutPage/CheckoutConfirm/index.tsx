@@ -3,10 +3,17 @@ import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { formatTime } from "../../../util/secondToMinutes"
 import FinishedOrderMessage from "../../../components/FinishedOrderMessage"
+import { useTranslation } from "react-i18next"
+import { useCartContent } from "../../../hooks/useCardContent"
 
 const CheckoutConfirm: React.FC = () => {
+  const { t } = useTranslation()
+  const { setTotalItemsInCard } = useCartContent()
   const navigate = useNavigate()
   const location = useLocation()
+  const deliveryMethod = location?.state?.deliveryMethod
+  const formValues = location?.state?.values
+  const paymentMethod = location?.state?.paymentMethod
   const [decrementCounter, setDecrementCounter] = useState(0)
   const [secondsCounter, setSecondsCounter] = useState(300)
   const [counterPercentage, setCounterPercentage] = useState(100)
@@ -21,6 +28,7 @@ const CheckoutConfirm: React.FC = () => {
     } else if (secondsCounter === 0) {
       setTimeout(() => {
         setShowFinishedOrderMessage(true)
+        cleanCart()
       }, 1000)
     }
   }, [showPixField, secondsCounter])
@@ -29,10 +37,21 @@ const CheckoutConfirm: React.FC = () => {
     if (secondsCounter > 0 && decrementCounter > 0 && decrementCounter % 3 === 0) {
       setCounterPercentage(state => state - 1)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [decrementCounter])
 
-  const mockedMethod = location?.state?.payment_method || 'pix'
-  
+  const mockedMethod = paymentMethod || 'pix'
+
+  function cleanCart() {
+    const storagedKeys = Object.keys(localStorage)
+    storagedKeys?.map((key) => {
+      if (key?.includes("Cart_Products")) {
+        localStorage.removeItem(key)
+      }
+    })
+    setTotalItemsInCard(0)
+  }
+
   function handleFinishShopping() {
     setLoading(true)
     setTimeout(() => {
@@ -43,6 +62,7 @@ const CheckoutConfirm: React.FC = () => {
           break
         case 'credit_card':
           setShowFinishedOrderMessage(true) 
+          cleanCart()
           setLoading(false)
           break
         default:
@@ -63,14 +83,14 @@ const CheckoutConfirm: React.FC = () => {
             title={
               <div style={{display: 'inline-flex', fontSize: 14, fontWeight: 400}}>
                 <div style={{marginRight: 20}}>{'Contato'}</div>
-                <div>{'email'}</div>
+                <div>{formValues?.checkout_email}</div>
               </div>
             } extra={<span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>}>
               <Divider style={{marginTop: -20}} />
               <Row justify="space-between" style={{display: 'flex', alignItems: 'center'}}>
                 <div style={{display: 'inline-flex'}}>
                   <div style={{marginRight: 20}}>{'Endereço de entrega'}</div>
-                  <div>{'Rua blablabla, cidade, número'}</div>
+                  <div>{formValues?.checkout_address}</div>
                 </div>
                 <span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>
               </Row>
@@ -78,7 +98,7 @@ const CheckoutConfirm: React.FC = () => {
               <Row justify="space-between" style={{display: 'flex', alignItems: 'center'}}>
                 <div style={{display: 'inline-flex'}}>
                   <div style={{marginRight: 20}}>{'Método de entrega'}</div>
-                  <div>{'blueRabbit LTDA - Padrão R$ 15.50'}</div>
+                  <div>{deliveryMethod}</div>
                 </div>
                 <span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>
               </Row>
@@ -86,7 +106,7 @@ const CheckoutConfirm: React.FC = () => {
               <Row justify="space-between" style={{display: 'flex', alignItems: 'center'}}>
                 <div style={{display: 'inline-flex'}}>
                   <div style={{marginRight: 20}}>{'Método de pagamento'}</div>
-                  <div>{'Pix'}</div>
+                  <div>{t(paymentMethod)}</div>
                 </div>
                 <span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>
               </Row>
@@ -110,17 +130,16 @@ const CheckoutConfirm: React.FC = () => {
           </Col>
           {showPixField && (
             <Row style={{display: 'flex'}}>
-            <Col xs={24}>
-              <Card className="pix-qrcode-card">
-                <Image src={"../src/assets/qrcode-pix.png"}/>
-                <Typography.Text className="pix-description">
-                  {'Você possui 5 minutos para concluir o pagamento via pix utilizando o QR Code ao lado, caso contrário, a compra será cancelada automaticamente'}
-                  <Progress style={{width: '100%', marginTop: 30}} size={130} type="circle" percent={counterPercentage} strokeColor={"#000"} format={() => formatTime(secondsCounter)} />
-                  
-                </Typography.Text>
-              </Card>
-            </Col>
-          </Row>
+              <Col xs={24}>
+                <Card className="pix-qrcode-card">
+                  <Image src={"../src/assets/qrcode-pix.png"} />
+                  <Typography.Text className="pix-description">
+                    {'Você possui 5 minutos para concluir o pagamento via pix utilizando o QR Code ao lado, caso contrário, a compra será cancelada automaticamente'}
+                    <Progress style={{width: '100%', marginTop: 30}} size={130} type="circle" percent={counterPercentage} strokeColor={"#000"} format={() => formatTime(secondsCounter)} />
+                  </Typography.Text>
+                </Card>
+              </Col>
+            </Row>
           )}
         </div>
       </Row>

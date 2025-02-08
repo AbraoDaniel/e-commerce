@@ -1,5 +1,6 @@
 import { Button, Checkbox, Col, Form, Input, Row, Select, Typography } from "antd"
 import { useNavigate } from "react-router-dom"
+import { allCountries } from "../../../util/productFields"
 
 const { Option } = Select
 
@@ -7,15 +8,29 @@ const CheckoutAddress: React.FC = () => {
   const [checkoutForm] = Form.useForm()
   const navigate = useNavigate()
 
-  function handleClickSaveAndContinue() {
-    navigate('/checkout/delivery')
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleChange = (value: any) => {
+    const country = allCountries?.find((c) => c.value === value)
+    checkoutForm?.setFieldsValue({
+      checkout_country: `${country?.flag} ${country?.label}`
+    })
+  };
+
+  async function handleClickSaveAndContinue() {
+    try {
+      const validated = await checkoutForm.validateFields()
+      if (validated) {
+        navigate('/checkout/delivery', {state: {formValues: validated}})
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
     <Form form={checkoutForm} layout="vertical" requiredMark={false}>
       <Row gutter={[16, 0]}>
         <Col xs={24}>
-          <Form.Item className="checkout-fields" label="" name="checkout_email" rules={[{required: true, message: 'Por favor, informe o e-mail'}]}>
             <Row justify="space-between">
               <Typography.Text style={{ fontSize: 16, marginBottom: 10}}>
                 {'E-mail de contato'}
@@ -24,6 +39,7 @@ const CheckoutAddress: React.FC = () => {
                 {'Já tem uma conta? Login'}
               </Typography.Text>
             </Row>
+          <Form.Item className="checkout-fields" label="" name="checkout_email" rules={[{required: true, message: 'Por favor, informe o e-mail'}]}>
             <Input type="email" placeholder="E-mail" className="checkout-email-input"/>
           </Form.Item>
         </Col>
@@ -42,10 +58,17 @@ const CheckoutAddress: React.FC = () => {
             {'Endereço para envio'}
           </Typography.Text>
           <Form.Item style={{marginTop: 10}} className="checkout-fields" label="País" name="checkout_country" rules={[{required: true, message: 'Por favor, informe o país'}]}>
-            <Select className="checkout-country" placeholder="País">
-              <Option value="eita">
-                {'eita'}
-              </Option>
+            <Select 
+              showSearch
+              optionFilterProp="children"
+              onChange={handleChange}
+              className="checkout-country" placeholder="País"
+            >
+              {allCountries?.map((country) => (
+                <Option key={country?.value} value={country?.value}>
+                  {country?.label}
+                </Option>
+              ))}
             </Select>
           </Form.Item>
         </Col>
@@ -66,7 +89,7 @@ const CheckoutAddress: React.FC = () => {
         </Col>
         <Col xs={24}>
           <Form.Item className="checkout-fields" label="Complemento" name="checkout_complement" rules={[{required: false}]}>
-            <Input placeholder="Casa, apartamento" className="checkout-complement"/>
+            <Input placeholder="Casa, apartamento (opcional)" className="checkout-complement"/>
           </Form.Item>
         </Col>
         <Col xs={8}>

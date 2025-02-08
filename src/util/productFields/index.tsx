@@ -89,3 +89,56 @@ export const defaultProductsList = [{
   ]
 }
 ]
+
+export const allCountries = [
+  { label: "Afeganistão", value: "Afeganistão", flag: "🇦🇫" },
+  { label: "Albânia", value: "Albânia", flag: "🇦🇱" },
+  { label: "Argélia", value: "Argélia", flag: "🇩🇿" },
+  { label: "Andorra", value: "Andorra", flag: "🇦🇩" },
+  { label: "Angola", value: "Angola", flag: "🇦🇴" },
+  { label: "Argentina", value: "Argentina", flag: "🇦🇷" },
+  { label: "Armênia", value: "Armênia", flag: "🇦🇲" },
+  { label: "Austrália", value: "Austrália", flag: "🇦🇺" },
+  { label: "Áustria", value: "Áustria", flag: "🇦🇹" },
+  { label: "Azerbaijão", value: "Azerbaijão", flag: "🇦🇿" },
+  { label: "Bahamas", value: "Bahamas", flag: "🇧🇸" },
+  { label: "Bahrein", value: "Bahrein", flag: "🇧🇭" },
+  { label: "Bangladesh", value: "Bangladesh", flag: "🇧🇩" },
+  { label: "Barbados", value: "Barbados", flag: "🇧🇧" },
+  { label: "Bielorrússia", value: "Bielorrússia", flag: "🇧🇾" },
+  { label: "Bélgica", value: "Bélgica", flag: "🇧🇪" },
+  { label: "Belize", value: "Belize", flag: "🇧🇿" },
+  { label: "Benim", value: "Benim", flag: "🇧🇯" },
+  { label: "Butão", value: "Butão", flag: "🇧🇹" },
+  { label: "Bolívia", value: "Bolívia", flag: "🇧🇴" },
+  { label: "Brasil", value: "Brasil", flag: "🇧🇷" },
+  { label: "Canadá", value: "Canadá", flag: "🇨🇦" },
+  { label: "Chile", value: "Chile", flag: "🇨🇱" },
+  { label: "China", value: "China", flag: "🇨🇳" },
+  { label: "Colômbia", value: "Colômbia", flag: "🇨🇴" },
+  { label: "Equador", value: "Equador", flag: "🇪🇨" },
+  { label: "França", value: "França", flag: "🇫🇷" },
+  { label: "Alemanha", value: "Alemanha", flag: "🇩🇪" },
+  { label: "Guiana", value: "Guiana", flag: "🇬🇾" },
+  { label: "Índia", value: "Índia", flag: "🇮🇳" },
+  { label: "Itália", value: "Itália", flag: "🇮🇹" },
+  { label: "Japão", value: "Japão", flag: "🇯🇵" },
+  { label: "México", value: "México", flag: "🇲🇽" },
+  { label: "Paraguai", value: "Paraguai", flag: "🇵🇾" },
+  { label: "Peru", value: "Peru", flag: "🇵🇪" },
+  { label: "Rússia", value: "Rússia", flag: "🇷🇺" },
+  { label: "África do Sul", value: "África do Sul", flag: "🇿🇦" },
+  { label: "Coreia do Sul", value: "Coreia do Sul", flag: "🇰🇷" },
+  { label: "Espanha", value: "Espanha", flag: "🇪🇸" },
+  { label: "Suriname", value: "Suriname", flag: "🇸🇷" },
+  { label: "Reino Unido", value: "Reino Unido", flag: "🇬🇧" },
+  { label: "Estados Unidos", value: "Estados Unidos", flag: "🇺🇸" },
+  { label: "Uruguai", value: "Uruguai", flag: "🇺🇾" },
+  { label: "Venezuela", value: "Venezuela", flag: "🇻🇪" }
+];
+
+export const validsPromotionalCodes = [
+  {code: 'DANTI10', value: '10'},
+  {code: 'DANTI15', value: '15'},
+  {code: 'BEMVINDO20', value: '20'},
+]

@@ -1,5 +1,5 @@
 import { Badge, Button, Input, Layout, Menu, Row, Space } from 'antd';
-import { CloseOutlined, HeartFilled, HeartOutlined, MenuOutlined, SearchOutlined, ShoppingOutlined, UserOutlined } from '@ant-design/icons';
+import { CloseOutlined, HeartFilled, HeartOutlined, MenuOutlined, SearchOutlined, ShoppingOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CartDrawer from '../CartDrawer';
@@ -99,7 +99,7 @@ const CommerceHeader: React.FC = () => {
             items={items}
           />
           <span className='personal-user-actions'>
-            <UserOutlined className='user-icon' onClick={() => alert('usuário')}/>
+            {/* <UserOutlined className='user-icon' onClick={() => alert('usuário')}/> */}
             {location?.pathname === '/wishlist' ? (<HeartFilled style={{marginRight: 10, cursor: 'pointer'}}/>) : (
               <HeartOutlined style={{marginRight: 10, cursor: 'pointer'}} onClick={() => navigate('/wishlist')}/>
             )}

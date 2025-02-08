@@ -1,5 +1,5 @@
 import { Button, Card, Col, Divider, Row, Typography } from "antd"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import PaymentMethod from "./PaymentMethod"
 import { CreditCardOutlined } from "@ant-design/icons"
 import { MdOutlinePix } from "react-icons/md"
@@ -9,9 +9,14 @@ import CreditCardForm from "../../../components/CreditCardModal/CreditCardForm"
 
 const CheckoutPayment: React.FC = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+  const deliveryMethod = location?.state?.deliveryMethod
+  const formValues = location?.state?.formValues
   const { selectedMethod, paymentCheckoutForm, validatedValues } = useProducts()
   function handleClickSaveAndContinue() {
-    navigate('/checkout/confirmation')
+    if (selectedMethod) {
+      navigate('/checkout/confirmation', {state: {values: formValues, deliveryMethod: deliveryMethod, paymentMethod: selectedMethod}})
+    }
   }
 
   const paymentMethods = [
@@ -28,14 +33,14 @@ const CheckoutPayment: React.FC = () => {
           title={
             <div style={{display: 'inline-flex', fontSize: 14, fontWeight: 400}}>
               <div style={{marginRight: 20}}>{'Contato'}</div>
-              <div>{'email'}</div>
+              <div>{formValues?.checkout_email}</div>
             </div>
           } extra={<span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>}>
             <Divider style={{marginTop: -20}} />
             <Row justify="space-between" style={{display: 'flex', alignItems: 'center'}}>
               <div style={{display: 'inline-flex'}}>
                 <div style={{marginRight: 20}}>{'Endereço de entrega'}</div>
-                <div>{'Rua blablabla, cidade, número'}</div>
+                <div>{formValues?.checkout_address}</div>
               </div>
               <span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>
             </Row>
@@ -43,7 +48,7 @@ const CheckoutPayment: React.FC = () => {
             <Row justify="space-between" style={{display: 'flex', alignItems: 'center'}}>
               <div style={{display: 'inline-flex'}}>
                 <div style={{marginRight: 20}}>{'Método de entrega'}</div>
-                <div>{'blueRabbit LTDA - Padrão R$ 15.50'}</div>
+                <div>{deliveryMethod}</div>
               </div>
               <span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>
             </Row>

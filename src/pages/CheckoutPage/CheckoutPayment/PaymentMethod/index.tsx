@@ -18,12 +18,8 @@ const PaymentMethod: React.FC<IPaymentMethod> = ({icon, method}) => {
   
   function handleClickInAPaymentMethod() {
     setSelectedMethod(method)
-    switch(method) {
-      case 'credit_card':
-        setShowCreditCardModal(true)
-        break
-      default:
-        alert(method)
+    if (method === 'credit_card') {
+     setShowCreditCardModal(true)
     }
   }
 

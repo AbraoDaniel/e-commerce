@@ -1,12 +1,25 @@
-import { Button, Card, Col, Divider, Radio, Row, Typography } from "antd"
-import { useNavigate } from "react-router-dom"
+import { Button, Card, Col, Divider, Row, Typography } from "antd"
+import { useLocation, useNavigate } from "react-router-dom"
+import { MdCircle } from "react-icons/md";
+import { useState } from "react";
 
 const CheckoutDelivery: React.FC = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+  const values = location?.state?.formValues
+  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState('')
+  
 
   function handleClickSaveAndContinue() {
-    navigate('/checkout/payment')
+    if (selectedDeliveryMethod) {
+      navigate('/checkout/payment', {state: {formValues: values, deliveryMethod: selectedDeliveryMethod}})
+    }
   }
+
+  const deliveryMethods = [
+    {enterprise: 'blueRabbit', delivery_modality: 'Padrão', value: 15.50},
+    {enterprise: 'redFox', delivery_modality: 'Gratuita', value: 0},
+  ]
 
   return (
     <Row>
@@ -17,41 +30,37 @@ const CheckoutDelivery: React.FC = () => {
           title={
             <div style={{display: 'inline-flex', fontSize: 14, fontWeight: 400}}>
               <div style={{marginRight: 20}}>{'Contato'}</div>
-              <div>{'email'}</div>
+              <div>{values?.checkout_email}</div>
             </div>
           } extra={<span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>}>
             <Divider style={{marginTop: -20}} />
             <Row justify="space-between" style={{display: 'flex', alignItems: 'center'}}>
               <div style={{display: 'inline-flex'}}>
                 <div style={{marginRight: 20}}>{'Endereço de entrega'}</div>
-                <div>{'Rua blablabla, cidade, número'}</div>
+                <div>{values?.checkout_address}</div>
               </div>
               <span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>
             </Row>
           </Card>
         </Col>
-        <Col xs={24} style={{marginTop: 20}}>
-          <Typography.Text>{'Entrega feita por blueRabbit LTDA'}</Typography.Text>
-          <Radio className="checkout-radio" checked onClick={() => alert('entrega blueRabbit')}>
-            <Typography.Text style={{marginRight: 380}}>
-              Padrão
-            </Typography.Text>
-            <Typography.Text>
-              R$ 15.50
-            </Typography.Text>
-          </Radio>
-        </Col>
-        <Col xs={24} style={{marginTop: 20}}>
-          <Typography.Text>{'Entrega feita por redFox LTDA'}</Typography.Text>
-          <Radio className="checkout-radio" checked onClick={() => alert('entrega redFox')}>
-            <Typography.Text style={{marginRight: 400}}>
-              Gratuita
-            </Typography.Text>
-            <Typography.Text>
-              Free
-            </Typography.Text>
-          </Radio>
-        </Col>
+        {deliveryMethods?.map((method) => {
+          return (
+            <Col xs={24} style={{marginTop: 20, cursor: 'pointer'}} key={`${method?.enterprise}_${method?.delivery_modality}`}>
+              <Typography.Text>{`Entrega feita por ${method?.enterprise}`}</Typography.Text>
+              <div className={`checkout-radio ${selectedDeliveryMethod?.split(' ')[0] === method?.enterprise ? 'selected' : ''}`} onClick={() => setSelectedDeliveryMethod(`${method?.enterprise} - ${method?.delivery_modality} ${method?.value > 0 ? `R$ ${method?.value?.toFixed(2)}`: ''}`)}>
+                <Row justify="space-between" >
+                  <Typography.Text style={{display: 'flex', alignItems: 'center'}}>
+                    <MdCircle size={16} style={{marginBottom: 3, marginRight: 10}}/>
+                    {method?.delivery_modality}
+                  </Typography.Text>
+                  <Typography.Text>
+                    {method?.value > 0 ? `R$ ${method?.value?.toFixed(2)}` : 'Grátis'}
+                  </Typography.Text>
+                </Row>
+              </div>
+            </Col>
+          )
+        })}
         <Col xs={24} style={{display: 'flex', justifyContent: 'end'}}>
           <Button className="checkout-button" onClick={handleClickSaveAndContinue}>
             {'Salvar e Continuar'}

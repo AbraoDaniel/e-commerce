@@ -361,11 +361,11 @@ button:focus-visible {
   }
 }
 
-.anticon.anticon-exclamation-circle, .anticon.anticon-check-circle  {
+.anticon.anticon-exclamation-circle, .anticon.anticon-check-circle, .anticon.anticon-close-circle  {
   color: black !important;
 }
 
-.ant-message-custom-content.ant-message-warning, .ant-message-custom-content.ant-message-success {
+.ant-message-custom-content.ant-message-warning, .ant-message-custom-content.ant-message-success, .ant-message-custom-content.ant-message-error {
   font-size: 16px;
 }
 
@@ -825,10 +825,61 @@ button:focus-visible {
   width: 100%;
 }
 
+.checkout-radio .ant-radio-wrapper {
+  display: block; /* ou display: flex; */
+  width: 100%;
+}
+
+.checkout-cart-summary {
+  .checkout-badge {
+    .ant-scroll-number.ant-badge-count {
+      background-color: white;
+      color: black;
+    }
+    .checkout-image {
+      border: 1px solid #666666;
+      border-radius: 6px;
+    }
+  }
+
+  .cart-products {
+    overflow-y: auto;
+    .cart-images {
+      max-height: 450px;
+      overflow: auto;
+      padding-top: 20px;
+    }
+  }
+
+  .cart-values {
+    height: 300px;
+    margin-top: 50px;
+    .input-cart-values {
+      height: 45px;
+      border-radius: 20px;
+      border: 1px solid #666666;
+    }
+    .button-cart-values {
+      height: 45px;
+      border-radius: 20px;
+      font-family: 'Inter', sans-serif;
+      background-color: black;
+      border-color: black;
+      color: white;
+    }
+    .button-cart-values:hover {
+      background-color: white;
+      color: black;
+      border-color: black;
+    }
+  }
+}
+
 .pix-qrcode-card {
   margin-top: 40px;
   .ant-card-body {
     display: flex;
+    align-items: center;
   }
   .ant-progress-text {
     color: black !important;
@@ -849,7 +900,7 @@ button:focus-visible {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro semi-transparente */
   display: flex;
   justify-content: center;
@@ -1093,7 +1144,7 @@ button:focus-visible {
 .checkout-container {
   margin: auto;
   margin-top: -100px;
-  height: 100vh;
+  min-height: 100vh;
   width: 65%;
 
   .checkout-informations {
@@ -1105,7 +1156,6 @@ button:focus-visible {
     }
     .checkout-form {
       margin-top: 10px;
-      height: 500px;
       .checkout-fields {
         .checkout-email-input, .checkout-country, .checkout-first-name, .checkout-last-name, .checkout-address,
         .checkout-complement, .checkout-city, .checkout-state, .checkout-cep, .checkout-phone
@@ -1153,14 +1203,10 @@ button:focus-visible {
     }
   }
   .checkout-cart-summary {
-    background-color: #4cb7ff;
-    height: 100vh;
     padding: 20px 42px;
     .cart-products {
       top: 0;
       position: sticky;
-      background-color: rebeccapurple;
-      height: 600px;
     }
   }
 }
@@ -1194,7 +1240,12 @@ button:focus-visible {
     padding: 20px 16px;
     border: 1px solid #666666;
     border-radius: 8px;
+    /* box-shadow: 0px 0px 4px black; */
   }
+  .checkout-radio.selected {
+    box-shadow: 0px 0px 4px black;
+  }
+
   .ant-radio-checked {
     .ant-radio-inner {
       background-color: black;
