@@ -17,8 +17,8 @@ const CheckoutDelivery: React.FC = () => {
   }
 
   const deliveryMethods = [
-    {enterprise: 'blueRabbit', delivery_modality: 'Padrão', value: 15.50},
-    {enterprise: 'redFox', delivery_modality: 'Gratuita', value: 0},
+    {enterprise: 'blueRabbit', delivery_modality: 'Padrão', value: 15.50, shipping_util_days: '2 a 3'},
+    {enterprise: 'redFox', delivery_modality: 'Gratuita', value: 0, shipping_util_days: '4 a 5'},
   ]
 
   return (
@@ -56,7 +56,7 @@ const CheckoutDelivery: React.FC = () => {
                       <MdOutlineBrightness1 size={16} style={{marginBottom: 3, marginRight: 10}}/>
                     )}
                     
-                    {method?.delivery_modality}
+                    {`${method?.delivery_modality} - ${method?.shipping_util_days} dias úteis`}
                   </Typography.Text>
                   <Typography.Text>
                     {method?.value > 0 ? `R$ ${method?.value?.toFixed(2)}` : 'Grátis'}

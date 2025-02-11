@@ -22,16 +22,6 @@ export function useProducts() {
     productContent => productContent.setSearchedProducts
   )
 
-  const favoriteProducts = useContextSelector(
-    ProductsContext,
-    productContent => productContent.favoriteProducts
-  )
-
-  const setFavoriteProducts = useContextSelector(
-    ProductsContext,
-    productContent => productContent.setFavoriteProducts
-  )
-
   const hideHeader = useContextSelector(
     ProductsContext,
     productContent => productContent.hideHeader
@@ -67,20 +57,29 @@ export function useProducts() {
     productContent => productContent.setValidatedValues
   )
 
+  const favoriteProductsIds = useContextSelector(
+    ProductsContext,
+    productContent => productContent.favoriteProductsIds
+  )
+
+  const setFavoriteProductsIds = useContextSelector(
+    ProductsContext,
+    productContent => productContent.setFavoriteProductsIds
+  )
 
   return {
     teste,
     all_products,
     searchedProducts,
     setSearchedProducts,
-    favoriteProducts,
-    setFavoriteProducts,
     hideHeader,
     setHideHeader,
     selectedMethod,
     setSelectedMethod,
     paymentCheckoutForm,
     validatedValues,
-    setValidatedValues
+    setValidatedValues,
+    favoriteProductsIds,
+    setFavoriteProductsIds
   }
 }

@@ -240,6 +240,7 @@ button:focus-visible {
     position: relative;
     left: 320px;
     bottom: 370px;
+    z-index: 1050;
   }
 }
 
@@ -390,6 +391,7 @@ button:focus-visible {
   .cart-image {
     width: 150px;
     height: 150px;
+    border-radius: 24px;
   }
   
   .cart-product-quantity-input {

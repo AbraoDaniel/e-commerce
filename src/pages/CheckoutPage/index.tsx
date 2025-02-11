@@ -152,7 +152,7 @@ const CheckoutPage: React.FC = () => {
                       <span style={{fontWeight: 600}}>{product?.product_name}</span>
                       <Row>
                         <Typography.Text style={{fontSize: 11}}>
-                          {`Tamanho: ${product?.product_size}`}
+                          {`Tamanho: ${product?.product_size?.toUpperCase()}`}
                         </Typography.Text>
                       </Row>
                     </Col>

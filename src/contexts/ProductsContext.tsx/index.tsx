@@ -24,8 +24,6 @@ interface ProductsContextProps {
   all_products: IAllProducts[]
   searchedProducts: IAllProducts[]
   setSearchedProducts: (value: IAllProducts[]) => void
-  favoriteProducts: IProduct[]
-  setFavoriteProducts: (value: IProduct[]) => void
   hideHeader: boolean
   setHideHeader: (value: boolean) => void
   selectedMethod: string
@@ -33,6 +31,8 @@ interface ProductsContextProps {
   paymentCheckoutForm: FormInstance
   validatedValues: any
   setValidatedValues: (value: any) => void
+  favoriteProductsIds: string[]
+  setFavoriteProductsIds: (value: any) => void
 }
 
 export const ProductsContext = createContext<ProductsContextProps>(
@@ -44,11 +44,10 @@ export const ProductsProvider: React.FC<{children: React.ReactNode}> = ({ childr
   const all_products = defaultProductsList
   const [paymentCheckoutForm] = Form.useForm()
   const [searchedProducts, setSearchedProducts] = useState(all_products)
-  const [favoriteProducts, setFavoriteProducts] = useState(
-    searchedProducts.flatMap(category => 
-      category?.products?.filter(product => product?.favorite) || []
-    )
-  )
+  const [favoriteProductsIds, setFavoriteProductsIds] = useState(() => {
+    const storagedIds = localStorage.getItem('@Danti:FavoriteProducts')
+    return storagedIds ? storagedIds.split(',') : []
+  })
   const [hideHeader, setHideHeader] = useState(false)
   const [selectedMethod, setSelectedMethod] = useState('pix')
   const [validatedValues, setValidatedValues] = useState()
@@ -61,15 +60,15 @@ export const ProductsProvider: React.FC<{children: React.ReactNode}> = ({ childr
         all_products,
         searchedProducts,
         setSearchedProducts,
-        favoriteProducts,
-        setFavoriteProducts,
         hideHeader,
         setHideHeader,
         selectedMethod,
         setSelectedMethod,
         paymentCheckoutForm,
         validatedValues,
-        setValidatedValues
+        setValidatedValues,
+        favoriteProductsIds,
+        setFavoriteProductsIds
       }}
     >
       {children}
