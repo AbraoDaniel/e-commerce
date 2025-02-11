@@ -8,7 +8,7 @@ interface IProduct {
   name: string,
   collection: string,
   price: number,
-  image: string,
+  images: string[],
   favorite: boolean,
   discount?: number,
   code: number

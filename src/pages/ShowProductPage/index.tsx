@@ -9,23 +9,13 @@ const ShowProductPage: React.FC = () => {
   const [productQty, setProductQty] = useState(1)
   const [productSize, setProductSize] = useState('')
   const { setTotalItemsInCard, totalItemsInCard } = useCartContent()
-  const [currentProductImage, setCurrentProductImage] = useState(`.${location?.state?.product_image}`)
+  const [currentProductImage, setCurrentProductImage] = useState(`.${location?.state?.product_images[0]}`)
   const productCategory = location?.state?.product_category
-  const images = productCategory === 'shoes' ? [{path: `../src/assets/Shoes/TenisPretoPadrao/diagonal-frente.png`}, 
-    {path: `../src/assets/Shoes/TenisPretoPadrao/diagonal-direita.png`},
-    {path: `../src/assets/Shoes/TenisPretoPadrao/baixo.png`},
-    {path: `../src/assets/Shoes/TenisPretoPadrao/cima.png`},
-    {path: `../src/assets/Shoes/TenisPretoPadrao/frente.png`},
-    {path: `../src/assets/Shoes/TenisPretoPadrao/lado.png`},
-    {path: `../src/assets/Shoes/TenisPretoPadrao/atras.png`},
-  ] : [{path: `.${location?.state?.product_image}`}, 
-    {path: `.${location?.state?.product_image}`},
-    {path: `.${location?.state?.product_image}`},
-    {path: `.${location?.state?.product_image}`},
-    {path: `.${location?.state?.product_image}`},
-    {path: `.${location?.state?.product_image}`},
-    {path: `.${location?.state?.product_image}`},
-  ]
+  const images = location.state.product_images.map((a: string) => {
+    return `.${a}`
+  }) || []
+
+  console.log(images, 'images!!!')
   const sizes = ['tshirts', 'coats', 'shorts']?.includes(productCategory) ? [{size: 'pp', available: false}, 
     {size: 'p', available: true},
     {size: 'm', available: false},

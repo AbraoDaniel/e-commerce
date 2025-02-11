@@ -8,7 +8,7 @@ import { useCartContent } from "../../../hooks/useCardContent"
 
 const CheckoutConfirm: React.FC = () => {
   const { t } = useTranslation()
-  const { setTotalItemsInCard } = useCartContent()
+  const { setTotalItemsInCard, showPixField, setShowPixField } = useCartContent()
   const navigate = useNavigate()
   const location = useLocation()
   const deliveryMethod = location?.state?.deliveryMethod
@@ -17,7 +17,7 @@ const CheckoutConfirm: React.FC = () => {
   const [decrementCounter, setDecrementCounter] = useState(0)
   const [secondsCounter, setSecondsCounter] = useState(300)
   const [counterPercentage, setCounterPercentage] = useState(100)
-  const [showPixField, setShowPixField] = useState(false)
+  
   const [showFinishedOrderMessage, setShowFinishedOrderMessage] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -85,14 +85,14 @@ const CheckoutConfirm: React.FC = () => {
                 <div style={{marginRight: 20}}>{'Contato'}</div>
                 <div>{formValues?.checkout_email}</div>
               </div>
-            } extra={<span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>}>
+            } extra={<span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{!loading && !showPixField ? 'Editar': ''}</span>}>
               <Divider style={{marginTop: -20}} />
               <Row justify="space-between" style={{display: 'flex', alignItems: 'center'}}>
                 <div style={{display: 'inline-flex'}}>
                   <div style={{marginRight: 20}}>{'Endereço de entrega'}</div>
                   <div>{formValues?.checkout_address}</div>
                 </div>
-                <span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>
+                <span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{!loading && !showPixField ? 'Editar': ''}</span>
               </Row>
               <Divider />
               <Row justify="space-between" style={{display: 'flex', alignItems: 'center'}}>
@@ -100,7 +100,7 @@ const CheckoutConfirm: React.FC = () => {
                   <div style={{marginRight: 20}}>{'Método de entrega'}</div>
                   <div>{deliveryMethod}</div>
                 </div>
-                <span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>
+                <span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{!loading && !showPixField ? 'Editar': ''}</span>
               </Row>
               <Divider />
               <Row justify="space-between" style={{display: 'flex', alignItems: 'center'}}>
@@ -108,7 +108,7 @@ const CheckoutConfirm: React.FC = () => {
                   <div style={{marginRight: 20}}>{'Método de pagamento'}</div>
                   <div>{t(paymentMethod)}</div>
                 </div>
-                <span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{'Editar'}</span>
+                <span style={{cursor: 'pointer', fontSize: 12}} onClick={() => navigate('/checkout/address')}>{!loading && !showPixField ? 'Editar': ''}</span>
               </Row>
             </Card>
           </Col>

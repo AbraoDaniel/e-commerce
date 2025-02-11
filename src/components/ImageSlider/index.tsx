@@ -50,11 +50,11 @@ const ImageSlider: React.FC<IImageSlider> = ({images, vertical, verticalSwiping,
               className={`thumbnail ${selectedIndex === index ? "active" : ""}`}
               onClick={() => {
                   setSelectedIndex(index)
-                  setCurrentProductImage(image?.path)
+                  setCurrentProductImage(image)
                 }
               }
             >
-              <Image preview={false} src={image.path} className="thumbnail-image" />
+              <Image preview={false} src={image} className="thumbnail-image" />
             </div>
           ))}
         </Slider>

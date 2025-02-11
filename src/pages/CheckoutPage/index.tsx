@@ -8,6 +8,7 @@ import CheckoutPayment from "./CheckoutPayment"
 import CheckoutConfirm from "./CheckoutConfirm"
 import { useLocation } from "react-router-dom"
 import { validsPromotionalCodes } from "../../util/productFields"
+import { useCartContent } from "../../hooks/useCardContent"
 
 
 const CheckoutPage: React.FC = () => {
@@ -16,6 +17,7 @@ const CheckoutPage: React.FC = () => {
   const deliveryValue = Number(deliveryMethod?.split(' ')[deliveryMethod?.split(' ')?.length - 1])
   const navigate = useNavigate()
   const { setHideHeader } = useProducts()
+  const { showPixField } = useCartContent()
   const { transition_status } = useParams()
   const entries = Object.entries(localStorage)
   const [totalPrice, setTotalPrice] = useState(0)
@@ -143,7 +145,7 @@ const CheckoutPage: React.FC = () => {
                   <Row justify="space-between" style={{alignItems: 'center', marginBottom: 20}} key={product?.product_code}>
                     <Col xs={5}>
                       <Badge count={product?.product_qty} className="checkout-badge">
-                        <Image preview={false} className="checkout-image" src={`.${product?.product_image}`} style={{width: 70, height: 70}}/>
+                        <Image preview={false} className="checkout-image" src={`.${product?.product_images[0]}`} style={{width: 70, height: 70}}/>
                       </Badge>
                     </Col>
                     <Col xs={12}>
@@ -171,9 +173,9 @@ const CheckoutPage: React.FC = () => {
             <div className="cart-values" style={{width: '100%', padding: '10px 8px'}}> 
               <Row justify="space-between">
                 <Col xs={18}>
-                  <Input  onChange={handleChangeInputPromotional} className="input-cart-values" maxLength={10} placeholder="Código promocional"/>
+                  <Input disabled={showPixField} onChange={handleChangeInputPromotional} className="input-cart-values" maxLength={10} placeholder="Código promocional"/>
                 </Col>
-                <Button disabled={!(inputPromotionalCode?.length > 0)} onClick={checkIfPromotionalCodeIsValid} className="button-cart-values">{'Aplicar'}</Button>
+                <Button disabled={!(inputPromotionalCode?.length > 0) || showPixField} onClick={checkIfPromotionalCodeIsValid} className="button-cart-values">{'Aplicar'}</Button>
               </Row>
               <div style={{marginTop: 20}}>
                 <Row justify="space-between">

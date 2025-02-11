@@ -5,6 +5,8 @@ interface CartContextProps {
   teste: string
   totalItemsInCard: number
   setTotalItemsInCard: (value: number) => void
+  showPixField: boolean
+  setShowPixField: (value: boolean) => void
 }
 
 export const CartContentContext = createContext<CartContextProps>(
@@ -21,13 +23,16 @@ export const CartContentProvider: React.FC<{children: React.ReactNode}> = ({ chi
     }
   })?.filter(b => b)
   const [totalItemsInCard, setTotalItemsInCard] = useState(cartList?.length)
+  const [showPixField, setShowPixField] = useState(false)
 
   return (
     <CartContentContext.Provider
       value={{
         teste,
         totalItemsInCard,
-        setTotalItemsInCard
+        setTotalItemsInCard,
+        showPixField,
+        setShowPixField
       }}
     >
       {children}

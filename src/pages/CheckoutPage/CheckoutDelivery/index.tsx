@@ -1,6 +1,6 @@
 import { Button, Card, Col, Divider, Row, Typography } from "antd"
 import { useLocation, useNavigate } from "react-router-dom"
-import { MdCircle } from "react-icons/md";
+import { MdCircle, MdOutlineBrightness1 } from "react-icons/md";
 import { useState } from "react";
 
 const CheckoutDelivery: React.FC = () => {
@@ -50,7 +50,12 @@ const CheckoutDelivery: React.FC = () => {
               <div className={`checkout-radio ${selectedDeliveryMethod?.split(' ')[0] === method?.enterprise ? 'selected' : ''}`} onClick={() => setSelectedDeliveryMethod(`${method?.enterprise} - ${method?.delivery_modality} ${method?.value > 0 ? `R$ ${method?.value?.toFixed(2)}`: ''}`)}>
                 <Row justify="space-between" >
                   <Typography.Text style={{display: 'flex', alignItems: 'center'}}>
-                    <MdCircle size={16} style={{marginBottom: 3, marginRight: 10}}/>
+                    {selectedDeliveryMethod?.split(' ')[0] === method?.enterprise ? (
+                      <MdCircle size={16} style={{marginBottom: 3, marginRight: 10}}/>
+                    ) : (
+                      <MdOutlineBrightness1 size={16} style={{marginBottom: 3, marginRight: 10}}/>
+                    )}
+                    
                     {method?.delivery_modality}
                   </Typography.Text>
                   <Typography.Text>

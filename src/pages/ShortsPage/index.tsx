@@ -34,7 +34,7 @@ const ShortsPage: React.FC = () => {
               {products?.map((product) => {
                 return (
                   <ProductsGridCard product_name={product?.name} product_collection={product?.collection} 
-                  product_price={product?.price} product_image={product?.image} product_favorite={product?.favorite}
+                  product_price={product?.price} product_images={product?.images} product_favorite={product?.favorite}
                   product_code={product?.code} product_category="shorts"
                   />
                 )

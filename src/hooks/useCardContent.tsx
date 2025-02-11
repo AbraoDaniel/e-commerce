@@ -17,11 +17,21 @@ export function useCartContent() {
     cartContent => cartContent.setTotalItemsInCard
   )
 
-  
+  const showPixField = useContextSelector(
+    CartContentContext,
+    cartContent => cartContent.showPixField
+  )
+
+  const setShowPixField = useContextSelector(
+    CartContentContext,
+    cartContent => cartContent.setShowPixField
+  )
   
   return {
     teste,
     totalItemsInCard,
-    setTotalItemsInCard
+    setTotalItemsInCard,
+    showPixField,
+    setShowPixField
   }
 }

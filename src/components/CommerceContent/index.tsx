@@ -8,7 +8,7 @@ interface ICommerceCard {
   name: string
   collection: string
   price: number
-  image: string
+  images: string[]
   favorite: boolean
   code: number
   discount?: number
@@ -35,7 +35,7 @@ const CommerceContent: React.FC<ICommerceContent> = ({category, products}) => {
         {products?.map((product) => {
           return (
             <CommerceCard product_name={product?.name} product_collection={product?.collection} 
-            product_price={product?.price} product_image={product?.image} product_favorite={product?.favorite} product_discount={product?.discount}
+            product_price={product?.price} product_images={product?.images} product_favorite={product?.favorite} product_discount={product?.discount}
             product_code={product?.code} product_category={category}
             />
           )
