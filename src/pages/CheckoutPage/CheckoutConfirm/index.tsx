@@ -132,7 +132,7 @@ const CheckoutConfirm: React.FC = () => {
             <Row style={{display: 'flex'}}>
               <Col xs={24}>
                 <Card className="pix-qrcode-card">
-                  <Image src={"../src/assets/qrcode-pix.png"} className="qrcode"/>
+                  <Image src={"/e-commerce/assets/qrcode-pix.png"} className="qrcode"/>
                   <Typography.Text className="pix-description">
                     {'Você possui 5 minutos para concluir o pagamento via pix utilizando o QR Code ao lado, caso contrário, a compra será cancelada automaticamente'}
                     <Progress style={{width: '100%', marginTop: 30}} size={130} type="circle" percent={counterPercentage} strokeColor={"#000"} format={() => formatTime(secondsCounter)} />
