@@ -11,7 +11,7 @@ const { Footer, Content } = Layout;
 
 const App: React.FC = () => {
   return (
-    <Router>
+    <Router basename='/e-commerce/'>
       <ProductsProvider>
         <CartContentProvider>
           <Layout style={{display: 'flex', flexDirection: 'column', width: '100%', minHeight:'100vh', background: 'white' }}>

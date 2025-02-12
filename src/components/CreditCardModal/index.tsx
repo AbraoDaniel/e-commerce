@@ -1,6 +1,6 @@
 import { Col, Modal, Row } from "antd"
 import { useEffect, useState } from "react"
-import { EloCardFlag, MastercardCardFlag, VisaCardFlag } from "../../assets/CardsFlags"
+import { EloCardFlag, MastercardCardFlag, VisaCardFlag } from "../../../public/assets/CardsFlags"
 import { EllipsisOutlined } from "@ant-design/icons"
 import dayjs from 'dayjs'
 import { cpfMask } from "../../util/cpfMask"

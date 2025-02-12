@@ -102,7 +102,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
               <div className="cart-product-view" key={`${product?.product_name?.toLowerCase()?.replace(" ", "-")}_${product?.product_code}`}>
                 <Row  style={{width: '100%'}}>
                   <Col xs={8} lg={6}>
-                    <Image preview={false} src={`.${product?.product_images[0]}`} className="cart-image"/>
+                    <Image preview={false} src={`${product?.product_images[0]}`} className="cart-image"/>
                   </Col>
                   <Col xs={15} lg={18}>
                     <Row justify="space-between">

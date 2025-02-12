@@ -9,11 +9,9 @@ const ShowProductPage: React.FC = () => {
   const [productQty, setProductQty] = useState(1)
   const [productSize, setProductSize] = useState('')
   const { setTotalItemsInCard, totalItemsInCard } = useCartContent()
-  const [currentProductImage, setCurrentProductImage] = useState(`.${location?.state?.product_images[0]}`)
+  const [currentProductImage, setCurrentProductImage] = useState(location?.state?.product_images[0])
   const productCategory = location?.state?.product_category
-  const images = location.state.product_images.map((a: string) => {
-    return `.${a}`
-  }) || []
+  const images = location.state.product_images
 
   const sizes = ['tshirts', 'coats', 'shorts']?.includes(productCategory) ? [{size: 'pp', available: false}, 
     {size: 'p', available: true},

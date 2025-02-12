@@ -176,7 +176,7 @@ const CheckoutPage: React.FC = () => {
                   <Row justify="space-between" style={{alignItems: 'center', marginBottom: 20}} key={product?.product_code}>
                     <Col xs={5}>
                       <Badge count={product?.product_qty} className="checkout-badge">
-                        <Image preview={false} className="checkout-image" src={`.${product?.product_images[0]}`} style={{width: 70, height: 70}}/>
+                        <Image preview={false} className="checkout-image" src={product?.product_images[0]} style={{width: 70, height: 70}}/>
                       </Badge>
                     </Col>
                     <Col xs={12}>

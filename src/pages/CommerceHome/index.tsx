@@ -1,7 +1,7 @@
 import { useProducts } from "../../hooks/useProducts"
 import CommerceContent from "../../components/CommerceContent"
 import { Button, Col, Row, Typography } from "antd"
-import bannerImage from "../../assets/danti-banner.png";
+import bannerImage from "/e-commerce/assets/danti-banner.png";
 
 const CommerceHome:React.FC = () => {
   const { searchedProducts } = useProducts()
