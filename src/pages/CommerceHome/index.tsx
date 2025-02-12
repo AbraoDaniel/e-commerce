@@ -1,7 +1,7 @@
 import { useProducts } from "../../hooks/useProducts"
 import CommerceContent from "../../components/CommerceContent"
 import { Button, Col, Row, Typography } from "antd"
-import bannerImage from "/e-commerce/assets/danti-banner.png";
+const bannerImage = "/e-commerce/assets/danti-banner.png"
 
 const CommerceHome:React.FC = () => {
   const { searchedProducts } = useProducts()
@@ -15,7 +15,7 @@ const CommerceHome:React.FC = () => {
 
   return (
     <>
-      <div className="danti-banner-reduced">
+      <div className="danti-banner-reduced" style={{ backgroundImage: `url(${bannerImage})` }}>
         <div className="banner-information-reduced">
           <Row>
             <Typography.Text className="info-title">{'BEM-VINDO À DANTI!'}</Typography.Text>
