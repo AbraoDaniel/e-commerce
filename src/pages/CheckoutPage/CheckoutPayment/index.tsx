@@ -12,10 +12,13 @@ const CheckoutPayment: React.FC = () => {
   const location = useLocation()
   const deliveryMethod = location?.state?.deliveryMethod
   const formValues = location?.state?.formValues
-  const { selectedMethod, paymentCheckoutForm, validatedValues } = useProducts()
+  const { selectedMethod, paymentCheckoutForm, validatedValues, setVisibleSummary, isButtonVisible } = useProducts()
   function handleClickSaveAndContinue() {
     if (selectedMethod) {
       navigate('/checkout/confirmation', {state: {values: formValues, deliveryMethod: deliveryMethod, paymentMethod: selectedMethod}})
+    }
+    if (isButtonVisible) {
+      setVisibleSummary(true)
     }
   }
 

@@ -114,13 +114,13 @@ const CheckoutConfirm: React.FC = () => {
           </Col>
           <Col xs={24} style={{marginTop: 20}}>
             <Row justify="space-between" style={{display: 'flex', alignItems: 'end'}}>
-              <Col xs={14}>
+              <Col xs={24} sm={14}>
                 <Row>
                   <Typography.Text style={{fontSize: 16, fontWeight: 600}}>{'Confirmar informações'}</Typography.Text>
                 </Row>
                 <Typography.Text type="secondary" style={{fontSize: 12}}>{'Ao confirmar, você reconhece concordar com os Termos de Uso'}</Typography.Text>
               </Col>
-              <Col xs={8} style={{display: 'flex', justifyContent: 'end'}}>
+              <Col xs={24} sm={8} style={{display: 'flex', justifyContent: 'end'}}>
                 <Button className="checkout-button" disabled={loading || showPixField || showFinishedOrderMessage} onClick={handleFinishShopping}>
                   {loading && (<Spin size="small"/>)}
                   {'Finalizar compra'}
@@ -132,7 +132,7 @@ const CheckoutConfirm: React.FC = () => {
             <Row style={{display: 'flex'}}>
               <Col xs={24}>
                 <Card className="pix-qrcode-card">
-                  <Image src={"../src/assets/qrcode-pix.png"} />
+                  <Image src={"../src/assets/qrcode-pix.png"} className="qrcode"/>
                   <Typography.Text className="pix-description">
                     {'Você possui 5 minutos para concluir o pagamento via pix utilizando o QR Code ao lado, caso contrário, a compra será cancelada automaticamente'}
                     <Progress style={{width: '100%', marginTop: 30}} size={130} type="circle" percent={counterPercentage} strokeColor={"#000"} format={() => formatTime(secondsCounter)} />

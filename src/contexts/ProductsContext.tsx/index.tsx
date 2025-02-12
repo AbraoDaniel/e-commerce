@@ -20,7 +20,6 @@ interface IAllProducts {
 }
 
 interface ProductsContextProps {
-  teste: string
   all_products: IAllProducts[]
   searchedProducts: IAllProducts[]
   setSearchedProducts: (value: IAllProducts[]) => void
@@ -33,14 +32,17 @@ interface ProductsContextProps {
   setValidatedValues: (value: any) => void
   favoriteProductsIds: string[]
   setFavoriteProductsIds: (value: any) => void
-}
+  visibleSummary: boolean
+  setVisibleSummary: (value: boolean) => void
+  isButtonVisible: boolean
+  setIsButtonVisible: (value: boolean) => void
+ }
 
 export const ProductsContext = createContext<ProductsContextProps>(
   {} as ProductsContextProps
 )
 
 export const ProductsProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
-  const teste = 'aaaa'
   const all_products = defaultProductsList
   const [paymentCheckoutForm] = Form.useForm()
   const [searchedProducts, setSearchedProducts] = useState(all_products)
@@ -51,12 +53,13 @@ export const ProductsProvider: React.FC<{children: React.ReactNode}> = ({ childr
   const [hideHeader, setHideHeader] = useState(false)
   const [selectedMethod, setSelectedMethod] = useState('pix')
   const [validatedValues, setValidatedValues] = useState()
+  const [visibleSummary, setVisibleSummary] = useState(false)
+  const [isButtonVisible, setIsButtonVisible] = useState(false);
 
 
   return (
     <ProductsContext.Provider
       value={{
-        teste,
         all_products,
         searchedProducts,
         setSearchedProducts,
@@ -68,7 +71,11 @@ export const ProductsProvider: React.FC<{children: React.ReactNode}> = ({ childr
         validatedValues,
         setValidatedValues,
         favoriteProductsIds,
-        setFavoriteProductsIds
+        setFavoriteProductsIds,
+        visibleSummary,
+        setVisibleSummary,
+        isButtonVisible,
+        setIsButtonVisible
       }}
     >
       {children}

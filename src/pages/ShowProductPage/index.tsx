@@ -15,7 +15,6 @@ const ShowProductPage: React.FC = () => {
     return `.${a}`
   }) || []
 
-  console.log(images, 'images!!!')
   const sizes = ['tshirts', 'coats', 'shorts']?.includes(productCategory) ? [{size: 'pp', available: false}, 
     {size: 'p', available: true},
     {size: 'm', available: false},
@@ -78,7 +77,7 @@ const ShowProductPage: React.FC = () => {
             
             <Col lg={11}>
               <div className="product-image-preview">
-                <Image src={currentProductImage} width={700} height={700} />
+                <Image src={currentProductImage} className="product-image-image" />
                 {location?.state?.product_discount && (
                   <div className="discount-product-flag" >
                     <Typography.Text>{`- ${location?.state?.product_discount}%`}</Typography.Text>
@@ -98,7 +97,7 @@ const ShowProductPage: React.FC = () => {
                   <div className="product-rate-show">
                     <Typography.Text style={{color: 'rgb(115, 115, 115)'}} className='product-rate-show-number'>{'9.5'}</Typography.Text>
                   </div>
-                  <Typography.Text className="product-rate-description" onClick={() => alert('mostrar avaliações')}>{'Ver avaliações (20)'}</Typography.Text>
+                  <Typography.Text className="product-rate-description" >{'Ver avaliações (20)'}</Typography.Text>
                 </Row>
                 <Row>
                   <Typography.Text className="payment-product-price">
@@ -115,7 +114,7 @@ const ShowProductPage: React.FC = () => {
                     <Typography.Text style={{fontSize: 16}}>
                       {'Selecione um tamanho'}
                     </Typography.Text>
-                    <Typography.Text onClick={() => alert('tabela de medidas')} style={{fontSize: 16, textDecoration: 'underline', cursor: 'pointer'}}>
+                    <Typography.Text style={{fontSize: 16, textDecoration: 'underline', cursor: 'pointer'}}>
                       {'Tabela de medidas'}
                     </Typography.Text>
                   </Row>
@@ -145,15 +144,15 @@ const ShowProductPage: React.FC = () => {
                       {productQty}
                     <PlusOutlined className="quantity-operator" onClick={() => setProductQty((state) => state + 1)}/>
                 </Row>
-                <Row justify="space-between">
-                  <Col >
-                    {contextHolder}
+                <Row gutter={[16,16]}>
+                  {contextHolder}
+                  <Col xs={20} xl={16} xxl={14}>
                     <Button className="product-add-to-cart-button" onClick={handleClickAddToCart}>
                       {'ADICIONAR AO CARRINHO'}
                       <ShoppingOutlined style={{marginBottom: 4, fontSize: 25}}  />
                     </Button>
                   </Col>
-                  <Col >
+                  <Col xs={3} xl={7} xxl={9}>
                     {location?.state?.product_favorite ? (
                       <HeartFilled style={{fontSize: 20, marginTop: 20, cursor: 'pointer', border: '1px solid black', borderRadius: 25, padding: '10px 10px'}} onClick={() => alert('favoritos')}/>
                     ) : (

@@ -106,7 +106,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
                   </Col>
                   <Col xs={15} lg={18}>
                     <Row justify="space-between">
-                      <Typography.Text className="cart-product-name">
+                      <Typography.Text className="cart-product-name" ellipsis>
                         {product?.product_name}
                       </Typography.Text>
                       <CloseOutlined style={{marginRight: 10}} onClick={() => handleClickRemoveFromCart(product?.product_name, product?.product_code)}/>
@@ -124,7 +124,7 @@ const CartDrawer: React.FC<ICartDrawer> = ({setVisibleCartDrawer}) => {
                       }</Typography.Text>
                     </Row>
                     <Row>
-                      <Typography.Text>
+                      <Typography.Text className="cart-product-size">
                         {product?.product_size ? `Tamanho ${product?.product_size?.toUpperCase()}` : `Tamanho único`}
                       </Typography.Text>
                     </Row>

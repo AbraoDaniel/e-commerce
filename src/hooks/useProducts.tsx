@@ -2,11 +2,6 @@ import { useContextSelector } from 'use-context-selector'
 import { ProductsContext } from '../contexts/ProductsContext.tsx'
 
 export function useProducts() {
-  const teste = useContextSelector(
-    ProductsContext,
-    productContent => productContent.teste
-  )
-
   const all_products = useContextSelector(
     ProductsContext,
     productContent => productContent.all_products
@@ -67,8 +62,27 @@ export function useProducts() {
     productContent => productContent.setFavoriteProductsIds
   )
 
+  const visibleSummary = useContextSelector(
+    ProductsContext,
+    productContent => productContent.visibleSummary
+  )
+
+  const setVisibleSummary = useContextSelector(
+    ProductsContext,
+    productContent => productContent.setVisibleSummary
+  )
+
+  const isButtonVisible = useContextSelector(
+    ProductsContext,
+    productContent => productContent.isButtonVisible
+  )
+
+  const setIsButtonVisible = useContextSelector(
+    ProductsContext,
+    productContent => productContent.setIsButtonVisible
+  )
+
   return {
-    teste,
     all_products,
     searchedProducts,
     setSearchedProducts,
@@ -80,6 +94,10 @@ export function useProducts() {
     validatedValues,
     setValidatedValues,
     favoriteProductsIds,
-    setFavoriteProductsIds
+    setFavoriteProductsIds,
+    visibleSummary,
+    setVisibleSummary,
+    isButtonVisible,
+    setIsButtonVisible
   }
 }

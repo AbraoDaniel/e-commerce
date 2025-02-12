@@ -26,7 +26,7 @@ const PaymentMethod: React.FC<IPaymentMethod> = ({icon, method}) => {
   return (
     <>
       {showCreditCardModal && (<CreditCardModal setShowCreditCardModal={setShowCreditCardModal}/>)}
-      <Col xs={6} className={`checkout-payment-methods ${method === selectedMethod ? 'selected' : ''}`} onClick={handleClickInAPaymentMethod}>
+      <Col xs={24} sm={6} className={`checkout-payment-methods ${method === selectedMethod ? 'selected' : ''}`} onClick={handleClickInAPaymentMethod}>
       <div>
         <Row>
           {icon}

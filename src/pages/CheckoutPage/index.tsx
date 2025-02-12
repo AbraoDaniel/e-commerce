@@ -1,6 +1,6 @@
 import { Image, Badge, Breadcrumb, Col, Row, Typography, Input, Button, message } from "antd"
 import { useProducts } from "../../hooks/useProducts"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import CheckoutAddress from "./CheckoutAddress"
 import CheckoutDelivery from "./CheckoutDelivery"
@@ -9,6 +9,8 @@ import CheckoutConfirm from "./CheckoutConfirm"
 import { useLocation } from "react-router-dom"
 import { validsPromotionalCodes } from "../../util/productFields"
 import { useCartContent } from "../../hooks/useCardContent"
+import CheckoutSummaryDrawer from "./CheckoutSummaryDrawer"
+import { MenuOutlined } from "@ant-design/icons"
 
 
 const CheckoutPage: React.FC = () => {
@@ -16,7 +18,7 @@ const CheckoutPage: React.FC = () => {
   const deliveryMethod = location?.state?.deliveryMethod
   const deliveryValue = Number(deliveryMethod?.split(' ')[deliveryMethod?.split(' ')?.length - 1])
   const navigate = useNavigate()
-  const { setHideHeader } = useProducts()
+  const { setHideHeader, visibleSummary, setVisibleSummary, setIsButtonVisible } = useProducts()
   const { showPixField } = useCartContent()
   const { transition_status } = useParams()
   const entries = Object.entries(localStorage)
@@ -24,6 +26,7 @@ const CheckoutPage: React.FC = () => {
   const [inputPromotionalCode, setInputPromotionalCode] = useState('')
   const [validPromotionalCode, setValidPromotionalCode] = useState<{code: string, value: string}>({code: '', value: ''})
   const [messageApi, contextHolder] = message.useMessage();
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   const cartList = entries?.map((a) => {
     if (a[0]?.includes("@Danti:Cart_Products")) {
@@ -53,6 +56,22 @@ const CheckoutPage: React.FC = () => {
       href: '/checkout/confirmation'
     }
   ]
+
+  useEffect(() => {
+    const checkVisibility = () => {
+      if (buttonRef.current) {
+        const isVisible = window.getComputedStyle(buttonRef.current).display !== "none";
+        setIsButtonVisible(isVisible);
+      }
+    };
+
+    checkVisibility(); // Verifica inicialmente
+    window.addEventListener("resize", checkVisibility); // Verifica ao redimensionar
+
+    return () => {
+      window.removeEventListener("resize", checkVisibility);
+    };
+  }, []);
 
   useEffect(() => {
     setHideHeader(true)
@@ -129,9 +148,20 @@ const CheckoutPage: React.FC = () => {
   return (
     <div className="checkout-container">
       {contextHolder}
+      {visibleSummary && <CheckoutSummaryDrawer deliveryMethod={deliveryMethod} showPixField={showPixField} 
+        inputPromotionalCode={inputPromotionalCode} handleChangeInputPromotional={handleChangeInputPromotional}
+        checkIfPromotionalCodeIsValid={checkIfPromotionalCodeIsValid} totalPrice={totalPrice}
+        deliveryValue={deliveryValue} validPromotionalCode={validPromotionalCode}
+        cartList={cartList} setVisibleSummaryDrawer={setVisibleSummary} />
+      }
       <Row >
-        <Col xs={14} className="checkout-informations">
-          <Typography.Text className="danti-logo-checkout">{'DANTI'}</Typography.Text>
+        <Col xs={24} lg={14} xl={12} className="checkout-informations">
+          <Row style={{marginBottom: 10}} justify="space-between">
+            <Typography.Text className="danti-logo-checkout">{'DANTI'}</Typography.Text>
+            <Button ref={buttonRef} className='checkout-menu-button' onClick={() => setVisibleSummary(true)}>
+              <MenuOutlined />
+            </Button>
+          </Row>
           <Breadcrumb itemRender={itemRender} className="checkout-breadcrumb" separator=">" items={routes} />
           <div className="checkout-form">
             {renderCurrentCheckoutStatus()}
@@ -203,7 +233,7 @@ const CheckoutPage: React.FC = () => {
                 <Row justify="space-between">
                   <span style={{fontWeight: 600, fontSize: 18, fontFamily: 'Inter'}}>{'Total:'}</span>
                   <Typography.Text style={{fontWeight: 600, fontSize: 18, fontFamily: 'Inter'}}>
-                    {deliveryValue ? (`R$ ${Number(totalPrice?.toFixed(2)) + Number(deliveryValue?.toFixed(2)) - Number(validPromotionalCode?.value)}`) : (`R$ ${Number(totalPrice?.toFixed(2)) - Number(validPromotionalCode?.value)}`)}
+                    {deliveryValue ? (`R$ ${(totalPrice + Number(deliveryValue) - Number(validPromotionalCode?.value))?.toFixed(2)}`) : (`R$ ${(totalPrice - Number(validPromotionalCode?.value))?.toFixed(2)}`)}
                   </Typography.Text>
                 </Row>
               </div>
