@@ -89,6 +89,7 @@ const CheckoutPage: React.FC = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function itemRender(currentRoute: any, params: any, items: any) {
+    console.log(params)
     const refs = items?.map((item: {href: string}) => item?.href)
     const indexOfLocation = refs?.indexOf(location.pathname)
     const currentIndex = refs?.indexOf(currentRoute?.href)
