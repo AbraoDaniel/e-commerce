@@ -4,14 +4,23 @@ import { Button, Col, Image, Rate, Row, Typography, message } from 'antd'
 import { useEffect, useState } from "react";
 import { HeartFilled, HeartOutlined, MinusOutlined, PlusOutlined, ShoppingOutlined } from "@ant-design/icons";
 import { useCartContent } from "../../hooks/useCardContent";
+import { useProducts } from "../../hooks/useProducts";
+import MeasurementsModal from "../../components/MeasurementsModal";
 const ShowProductPage: React.FC = () => {
   const location = useLocation()
   const [productQty, setProductQty] = useState(1)
   const [productSize, setProductSize] = useState('')
+  const { setFavoriteProductsIds } = useProducts()
   const { setTotalItemsInCard, totalItemsInCard } = useCartContent()
   const [currentProductImage, setCurrentProductImage] = useState(location?.state?.product_images[0])
+  const [showMeasurementsModal, setShowMeasurementsModal] = useState(false);
   const productCategory = location?.state?.product_category
   const images = location.state.product_images
+  const [favoriteProduct, setFavoriteProduct] = useState(() => {
+    const storagedValues = localStorage.getItem('@Danti:FavoriteProducts')
+    const splitted = storagedValues?.split(',') as string[] || []
+    return storagedValues && splitted?.includes(location?.state?.product_code.toString())
+  })
 
   const sizes = ['tshirts', 'coats', 'shorts']?.includes(productCategory) ? [{size: 'pp', available: false}, 
     {size: 'p', available: true},
@@ -63,9 +72,45 @@ const ShowProductPage: React.FC = () => {
     }
   }
 
+  const addToWishList= () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Produto adicionado a lista de desejos!'
+    });
+  };
+
+  const removeFromWishList= () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Produto removido da lista de desejos!'
+    });
+  };
+
+  async function handleClickFavoriteProduct(event: React.MouseEvent) {
+    event.stopPropagation(); 
+    const storagedValues = localStorage.getItem('@Danti:FavoriteProducts')
+    const splitted = storagedValues?.split(',') as string[] || []
+    if (storagedValues && splitted?.includes(location?.state?.product_code.toString())) {
+      const filteredValues = splitted?.filter(a => Number(a) !== location?.state?.product_code)
+      setFavoriteProductsIds(filteredValues)
+      removeFromWishList()
+      setFavoriteProduct(false)
+      localStorage.setItem("@Danti:FavoriteProducts", filteredValues?.join(','))
+    } else {
+      const newFavoriteValues = [...splitted, location?.state?.product_code?.toString()]
+      addToWishList()
+      setFavoriteProduct(true)
+      localStorage.setItem("@Danti:FavoriteProducts", newFavoriteValues?.join(','))
+    }
+  }
+
   
   return (
     <div className="products-view">
+      {showMeasurementsModal && (<MeasurementsModal
+        productCategory={productCategory}
+        setShowMeasurementsModal={setShowMeasurementsModal}
+      />)}
       <div className="reduced-view" style={{color: 'black'}}>
         <div className="product-show">
           <Row style={{width: '100%'}} >
@@ -112,7 +157,7 @@ const ShowProductPage: React.FC = () => {
                     <Typography.Text style={{fontSize: 16}}>
                       {'Selecione um tamanho'}
                     </Typography.Text>
-                    <Typography.Text style={{fontSize: 16, textDecoration: 'underline', cursor: 'pointer'}}>
+                    <Typography.Text style={{fontSize: 16, textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setShowMeasurementsModal(true)}>
                       {'Tabela de medidas'}
                     </Typography.Text>
                   </Row>
@@ -151,10 +196,10 @@ const ShowProductPage: React.FC = () => {
                     </Button>
                   </Col>
                   <Col xs={3} xl={7} xxl={9}>
-                    {location?.state?.product_favorite ? (
-                      <HeartFilled style={{fontSize: 20, marginTop: 20, cursor: 'pointer', border: '1px solid black', borderRadius: 25, padding: '10px 10px'}} onClick={() => alert('favoritos')}/>
+                    {favoriteProduct ? (
+                      <HeartFilled style={{fontSize: 20, marginTop: 20, cursor: 'pointer', border: '1px solid black', borderRadius: 25, padding: '10px 10px'}} onClick={handleClickFavoriteProduct}/>
                     ) : (
-                      <HeartOutlined style={{fontSize: 20, marginTop: 20, cursor: 'pointer', border: '1px solid black', borderRadius: 25, padding: '10px 10px'}} onClick={() => alert('favoritos')}/>
+                      <HeartOutlined style={{fontSize: 20, marginTop: 20, cursor: 'pointer', border: '1px solid black', borderRadius: 25, padding: '10px 10px'}} onClick={handleClickFavoriteProduct}/>
                     )}
                   </Col>
                 </Row>
