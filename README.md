@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-<h4 align="center">A front-end e-commerce application to manage personal goals</h4>
+<h4 align="center">A front-end e-commerce application</h4>
 
 <p align="center">
   <a href="#about-the-project">About the project</a> •
