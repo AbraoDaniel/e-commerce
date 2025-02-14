@@ -28,10 +28,10 @@
 The **Danti Shop** project was developed as a scalable and modern shopping platform using **ReactJS**, **TypeScript**, **HTML**, and **CSS**. It serves as a foundation for a fully functional online store, with a structured architecture that allows seamless **integration with databases and backend services**.
 
 ### Key Features:
-✔️ **Modern and responsive interface**, ensuring a seamless user experience 📱
-✔️ **Scalable architecture**, facilitating future enhancements and backend integrations ⚡
-✔️ **Efficient componentization**, promoting reusability and simplified maintenance 🔄
-✔️ **Optimized state management**, ensuring performance and smooth navigation 🔥
+✔️ **Modern and responsive interface**, ensuring a seamless user experience 📱 <br/>
+✔️ **Scalable architecture**, facilitating future enhancements and backend integrations ⚡  <br/>
+✔️ **Efficient componentization**, promoting reusability and simplified maintenance 🔄  <br/>
+✔️ **Optimized state management**, ensuring performance and smooth navigation 🔥  <br/>
  
 
 ## How to use
