@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import AccessoriesPage from "../../pages/AccessoriesPage";
 import CheckoutPage from "../../pages/CheckoutPage";
-import CoatsPage from "../../pages/CoatsPage ";
+import CoatsPage from "../../pages/CoatsPage";
 import CommerceHome from "../../pages/CommerceHome";
 import PantsPage from "../../pages/PantsPage";
 import ShoesPage from "../../pages/ShoesPage";
@@ -11,7 +11,6 @@ import TshirtsPage from "../../pages/TshirtsPage";
 import WishListPage from "../../pages/WishListPage";
 
 export const routePathsAndElements: any = [
-  {path: '/', element: <CommerceHome />},
   {path: '/tshirts', element: <TshirtsPage />},
   {path: '/shorts', element: <ShortsPage />},
   {path: '/coats', element: <CoatsPage />},
