@@ -11,6 +11,7 @@ import TshirtsPage from "../../pages/TshirtsPage";
 import WishListPage from "../../pages/WishListPage";
 
 export const routePathsAndElements: any = [
+  {path: '/', element: <CommerceHome />},
   {path: '/tshirts', element: <TshirtsPage />},
   {path: '/shorts', element: <ShortsPage />},
   {path: '/coats', element: <CoatsPage />},
